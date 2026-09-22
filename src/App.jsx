@@ -1,54 +1,76 @@
-import React from 'react';
-import { Sparkles } from 'lucide-react';
-import confetti from 'canvas-confetti';
+import React, { useState } from 'react';
+import { PUZZLES } from './data/puzzles.js';
+import TopHUD from './components/TopHUD.jsx';
+import RoomStage from './components/RoomStage.jsx';
+import DialogueDeck from './components/DialogueDeck.jsx';
 
 export default function App() {
-  const triggerCelebration = () => {
-    confetti({
-      particleCount: 50,
-      spread: 60,
-      origin: { y: 0.7 },
-      colors: ['#C59B4B', '#B2533E', '#6B8772', '#E8DBBF']
-    });
+  const [solvedPuzzles, setSolvedPuzzles] = useState([]);
+  const [isMuted, setIsMuted] = useState(false);
+  const [dialogueMood, setDialogueMood] = useState('neutral');
+  const [activeDialogue, setActiveDialogue] = useState(
+    "Hoo! You must be Arthur's kin. The ledger is sealed tight, but that envelope on the desk carries his very first clue. Click on it to begin!"
+  );
+
+  const handleSelectPuzzle = (puzzle) => {
+    const isUnlocked = puzzle.prerequisites.length === 0 || 
+      puzzle.prerequisites.every((id) => solvedPuzzles.includes(id));
+    const isSolved = solvedPuzzles.includes(puzzle.id);
+
+    if (!isUnlocked) {
+      setActiveDialogue(`Barnaby: "That item is still sealed! Arthur's notes indicate we must solve earlier clues first."`);
+      setDialogueMood('thinking');
+      return;
+    }
+
+    if (isSolved) {
+      setActiveDialogue(`Barnaby: "You already cracked ${puzzle.title}! The seal is broken."`);
+      setDialogueMood('happy');
+      return;
+    }
+
+    setActiveDialogue(`Barnaby: "You examine ${puzzle.title}. ${puzzle.clue.prompt}"`);
+    setDialogueMood('neutral');
+  };
+
+  const handleBarnabyClick = () => {
+    setActiveDialogue("Barnaby: 'Hoo! Need some guidance? Take a close look at the clues scattered around the study!'");
+    setDialogueMood('thinking');
+  };
+
+  const handleSanctumClick = () => {
+    setActiveDialogue("Barnaby: 'The Master Sanctum is bound by six heavy chains. Solve all six archive entries to break them!'");
+    setDialogueMood('thinking');
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-      <div className="max-w-md w-full bg-parchment-200 border border-parchment-300 rounded-xl p-8 shadow-parchment relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none">
-          <div className="absolute transform rotate-45 bg-rust text-white text-[10px] font-serif uppercase tracking-widest py-0.5 right-[-35px] top-[18px] w-[120px] text-center shadow-sm">
-            Phase 1
-          </div>
-        </div>
+    <div className="min-h-screen bg-[#1E1712] text-ink-900 flex flex-col items-center justify-center p-2 sm:p-4 select-none">
+      <div className="w-full max-w-6xl aspect-[16/9] relative bg-parchment-100 rounded-xl overflow-hidden shadow-2xl border-4 border-[#3D2C20] flex flex-col">
+        <TopHUD
+          solvedCount={solvedPuzzles.length}
+          isMuted={isMuted}
+          onToggleMute={() => setIsMuted(!isMuted)}
+          rank={solvedPuzzles.length >= 3 ? 'Senior Archivist' : 'Apprentice Archivist'}
+        />
 
-        <div className="w-16 h-16 bg-parchment-100 rounded-full border border-parchment-300 mx-auto flex items-center justify-center text-3xl mb-4 shadow-sm">
-          🦉
-        </div>
+        <RoomStage
+          puzzles={PUZZLES}
+          solvedPuzzles={solvedPuzzles}
+          onSelectPuzzle={handleSelectPuzzle}
+          onBarnabyClick={handleBarnabyClick}
+          onSanctumClick={handleSanctumClick}
+        />
 
-        <h1 className="font-serif text-2xl font-bold text-ink-900 tracking-wide mb-1">
-          Cryptique
-        </h1>
-        <p className="font-sans text-xs tracking-widest uppercase text-ink-500 mb-4">
-          The Archivist's Ledger
-        </p>
-
-        <p className="font-sans text-sm text-ink-700 leading-relaxed mb-6">
-          Phase 1 is live! The parchment palette, typography, and libraries are ready for Uncle Arthur's vault.
-        </p>
-
-        <div className="font-hand text-xl text-ink-800 bg-parchment-100/70 p-3 rounded-lg border border-dashed border-parchment-400 mb-6">
-          "Every locked ledger carries a secret worth remembering."
-        </div>
-
-        <button
-          onClick={triggerCelebration}
-          className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-rust text-white rounded-lg font-serif text-sm tracking-wide shadow-seal hover:bg-rust-hover transition active:scale-[0.99]"
-        >
-          <Sparkles className="w-4 h-4" />
-          Test Gold Confetti Seal
-        </button>
+        <DialogueDeck
+          dialogue={activeDialogue}
+          mood={dialogueMood}
+          onBarnabyClick={handleBarnabyClick}
+        />
       </div>
 
+      <div className="mt-3 text-[11px] text-parchment-400 font-sans tracking-wide">
+        Cryptique — The Archivist's Ledger
+      </div>
     </div>
   );
 }

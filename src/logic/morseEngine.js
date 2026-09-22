@@ -14,7 +14,7 @@ export const MORSE_UNIT_MS = 120;
 export function textToMorse(text) {
     return text
         .toUpperCase()
-        .split('')
+        .split(' ')
         .map((word) =>
         word
             .split('')

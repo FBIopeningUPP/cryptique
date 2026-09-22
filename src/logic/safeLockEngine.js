@@ -1,5 +1,3 @@
-import { details } from "framer-motion/client";
-
 export const INITIAL_DIALS = [0, 0, 0, 0];
 export const TARGET_COMBINATION = [3, 4, 3, 7];
 
