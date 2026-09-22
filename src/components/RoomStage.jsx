@@ -18,7 +18,7 @@ export default function RoomStage({
   const isSolved = (puzzleId) => solvedPuzzles.includes(puzzleId);
 
   return (
-    <div className="relative flex-1 w-full overflow-hidden">
+    <div className="relative w-full h-full overflow-hidden">
       <img
         src="/assets/room_attic_empty.png"
         alt="Attic Study"

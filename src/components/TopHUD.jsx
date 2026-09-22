@@ -1,7 +1,19 @@
-import React from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
+import React, { useState } from 'react';
+import { Volume2, VolumeX, Maximize2, Minimize2 } from 'lucide-react';
 
 export default function TopHUD({ solvedCount, isMuted, onToggleMute, rank = 'Apprentice Archivist' }) {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen().catch(() => {});
+      setIsFullscreen(false);
+    }
+  };
+
   return (
     <div className="absolute top-0 left-0 right-0 h-12 bg-[#2D1F17]/90 backdrop-blur-sm border-b-2 border-[#543D2D] z-30 px-4 flex items-center justify-between">
       <div className="flex items-center gap-2">
@@ -34,13 +46,23 @@ export default function TopHUD({ solvedCount, isMuted, onToggleMute, rank = 'App
         })}
       </div>
 
-      <button
-        onClick={onToggleMute}
-        className="p-1.5 rounded text-parchment-300 hover:text-gold hover:bg-[#3D2C20] transition"
-        title={isMuted ? 'Unmute' : 'Mute'}
-      >
-        {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-      </button>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={onToggleMute}
+          className="p-1.5 rounded text-parchment-300 hover:text-gold hover:bg-[#3D2C20] transition"
+          title={isMuted ? 'Unmute' : 'Mute'}
+        >
+          {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+        </button>
+
+        <button
+          onClick={toggleFullscreen}
+          className="p-1.5 rounded text-parchment-300 hover:text-gold hover:bg-[#3D2C20] transition hidden sm:inline-flex"
+          title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+        >
+          {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+        </button>
+      </div>
     </div>
   );
 }

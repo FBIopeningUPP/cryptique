@@ -44,15 +44,15 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1E1712] text-ink-900 flex flex-col items-center justify-center p-2 sm:p-4 select-none">
-      <div className="w-full max-w-6xl aspect-[16/9] relative bg-parchment-100 rounded-xl overflow-hidden shadow-2xl border-4 border-[#3D2C20] flex flex-col">
-        <TopHUD
-          solvedCount={solvedPuzzles.length}
-          isMuted={isMuted}
-          onToggleMute={() => setIsMuted(!isMuted)}
-          rank={solvedPuzzles.length >= 3 ? 'Senior Archivist' : 'Apprentice Archivist'}
-        />
+    <div className="w-screen h-screen overflow-hidden bg-[#1E1712] text-ink-900 select-none relative">
+      <TopHUD
+        solvedCount={solvedPuzzles.length}
+        isMuted={isMuted}
+        onToggleMute={() => setIsMuted(!isMuted)}
+        rank={solvedPuzzles.length >= 3 ? 'Senior Archivist' : 'Apprentice Archivist'}
+      />
 
+      <div className="w-full h-full relative">
         <RoomStage
           puzzles={PUZZLES}
           solvedPuzzles={solvedPuzzles}
@@ -66,10 +66,6 @@ export default function App() {
           mood={dialogueMood}
           onBarnabyClick={handleBarnabyClick}
         />
-      </div>
-
-      <div className="mt-3 text-[11px] text-parchment-400 font-sans tracking-wide">
-        Cryptique — The Archivist's Ledger
       </div>
     </div>
   );

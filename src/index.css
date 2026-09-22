@@ -3,27 +3,28 @@
 @tailwind utilities;
 
 @layer base {
-    body {
-        background-color: #FBF7EE;
-        color: #231B15;
-        background-image: 
-            radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.45) 0%, transparent 75%),
-            radial-gradient(ellipse at center, transparent 60%, rgba(53, 43, 36, 0.05) 100%);
-        background-attachment: fixed;
-    }
+  html, body, #root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #1E1712;
+    color: #231B15;
+  }
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #F4EBD9;
+  background: #F4EBD9;
 }
 ::-webkit-scrollbar-thumb {
-    background: #D5C29D;
-    border-radius: 4px;
+  background: #D5C29D;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #BAA276;
+  background: #BAA276;
 }
