@@ -44,7 +44,7 @@ export default function App() {
   };
 
   return (
-    <div className="w-screen h-screen overflow-hidden bg-[#1E1712] text-ink-900 select-none relative">
+    <div className="fixed inset-0 w-full h-full overflow-hidden bg-[#1E1712] text-ink-900 select-none">
       <TopHUD
         solvedCount={solvedPuzzles.length}
         isMuted={isMuted}
