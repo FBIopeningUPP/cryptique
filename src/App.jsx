@@ -18,28 +18,28 @@ export default function App() {
     const isSolved = solvedPuzzles.includes(puzzle.id);
 
     if (!isUnlocked) {
-      setActiveDialogue(`Barnaby: "That item is still sealed! Arthur's notes indicate we must solve earlier clues first."`);
+      setActiveDialogue("That item is still sealed! Arthur's notes indicate we must solve earlier clues first.");
       setDialogueMood('thinking');
       return;
     }
 
     if (isSolved) {
-      setActiveDialogue(`Barnaby: "You already cracked ${puzzle.title}! The seal is broken."`);
+      setActiveDialogue(`You already cracked ${puzzle.title}! The seal is broken.`);
       setDialogueMood('happy');
       return;
     }
 
-    setActiveDialogue(`Barnaby: "You examine ${puzzle.title}. ${puzzle.clue.prompt}"`);
+    setActiveDialogue(`You examine ${puzzle.title}. ${puzzle.clue.prompt}`);
     setDialogueMood('neutral');
   };
 
   const handleBarnabyClick = () => {
-    setActiveDialogue("Barnaby: 'Hoo! Need some guidance? Take a close look at the clues scattered around the study!'");
+    setActiveDialogue("Hoo! Need some guidance? Take a close look at the clues scattered around the study!");
     setDialogueMood('thinking');
   };
 
   const handleSanctumClick = () => {
-    setActiveDialogue("Barnaby: 'The Master Sanctum is bound by six heavy chains. Solve all six archive entries to break them!'");
+    setActiveDialogue("The Master Sanctum is bound by six heavy chains. Solve all six archive entries to break them!");
     setDialogueMood('thinking');
   };
 
