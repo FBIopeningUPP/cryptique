@@ -1,13 +1,13 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {Volume2, FileText} from 'lucide-react';
 import { playMorseTone } from '../../../logic/audioEngine.js';
-import {compileMoreSchedule} from '../../../logic/morseEngine.js';
+import { compileMorseSchedule } from '../../../logic/morseEngine.js';
 
 export default function TelegraphPuzzle({puzzle, isMuted}) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isBulbLit, setIsBulbLit] = useState(false);
     const [showChart, setShowChart] = useState(false);
-    const timeoutRef = useRef([]);
+    const timeoutsRef = useRef([]);
 
     const stopPlayback = () => {
         timeoutsRef.current.forEach((t) => clearTimeout(t));
@@ -16,6 +16,12 @@ export default function TelegraphPuzzle({puzzle, isMuted}) {
         setIsPlaying(false);
     };
 
+    useEffect(() => {
+        return () => {
+            timeoutsRef.current.forEach((t) => clearTimeout(t));
+        };
+    }, []);
+
     const handlePlayTransmission = () => {
         if (isPlaying) {
             stopPlayback();
@@ -23,7 +29,7 @@ export default function TelegraphPuzzle({puzzle, isMuted}) {
         }
 
         setIsPlaying(true);
-        const schedule = compileMoreSchedule(puzzle.clue.moreSequence, 130);
+        const schedule = compileMorseSchedule(puzzle.clue.morseSequence, 130);
         let cumulativeDelay = 0;
 
         schedule.forEach((step, idx) => {

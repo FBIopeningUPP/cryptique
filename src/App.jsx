@@ -23,7 +23,7 @@ export default function App() {
     const isSolved = solvedPuzzles.includes(puzzle.id);
 
     if (!isUnlocked) {
-      setActiveDialogue("That item is still sealed! Arthur's notes indicate we must earlier clues first.");
+      setActiveDialogue("That item is still sealed! Arthur's notes indicate we must solve earlier clues first.");
       setDialogueMood('thinking');
       return;
     }

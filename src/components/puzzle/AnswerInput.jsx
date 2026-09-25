@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';                                                                                                                                                        
 import { KeyRound, Check } from 'lucide-react';                                                                                                                                                
 import { verifyAnswer } from '../../logic/cipherEngine.js';                                                                                                                                    
-import { playSealStamp, playSuccessChime, playSucessChime } from '../../logic/audioEngine.js';       
+import { playSealStamp, playSuccessChime } from '../../logic/audioEngine.js';
 
 export default function AnswerInput({
     acceptedAnswers,
@@ -19,7 +19,7 @@ export default function AnswerInput({
         if (isSolved || !inputVal.trim()) return;
 
         if (verifyAnswer(inputVal, acceptedAnswers)) {
-            playSucessChime(isMuted);
+            playSuccessChime(isMuted);
             onSolve(inputVal.trim().toUpperCase());
         } else {
             playSealStamp(isMuted);

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { ChevronUp, ChevronDown, Lock, Unlock} from 'lucide-react';
 import { rotateTumbler, isCombinationCorrect } from '../../../logic/safeLockEngine.js';
-import { playMechanicalClick, playSucessChime, playSealStamp } from '../../../logic/audioEngine.js';
+import { playMechanicalClick, playSuccessChime, playSealStamp } from '../../../logic/audioEngine.js';
 
 export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
     const [dials, setDials] = useState([0, 0, 0, 0]);
@@ -15,7 +15,7 @@ export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
     const handlePullLever = () => {
         if (isSolved) return;
         if (isCombinationCorrect(dials)) {
-            playSucessChime(isMuted);
+            playSuccessChime(isMuted);
             onSolve('3437');
         } else {
             playSealStamp(isMuted);
