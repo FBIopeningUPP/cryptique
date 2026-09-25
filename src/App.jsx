@@ -5,6 +5,7 @@ import RoomStage from './components/RoomStage.jsx';
 import DialogueDeck from './components/DialogueDeck.jsx';                                                                                                                                      
 import InspectModal from './components/puzzle/InspectModal.jsx';                                                                                                                               
 import SanctumModal from './components/SanctumModal.jsx';                                                                                                                                      
+import CurioShelfModal from './components/curios/CurioShelfModal.jsx';
 
 export default function App() {
   const [solvedPuzzles, setSolvedPuzzles] = useState([]);
@@ -105,6 +106,13 @@ export default function App() {
         isOpen={isSanctumOpen}
         onClose={() => setIsSanctumOpen(false)}
         rank={getRank()}
+      />
+      <CurioShelfModal
+        isOpen={isCurioOpen}
+        onClose={() => setIsCurioOpen(false)}
+        solvedPuzzles={solvedPuzzles}
+        puzzles={PUZZLES}
+        isMuted={isMuted}
       />
     </div>
   );
