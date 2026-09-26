@@ -1,4 +1,5 @@
 import React from 'react';
+import UVPuzzle from './UVPuzzle.jsx'
 
 export default function ScrapbookRoom({ onReturn }) {
     return (
@@ -14,6 +15,10 @@ export default function ScrapbookRoom({ onReturn }) {
             <h1 className="font-serif text-3xl font-bold mb-2">Memory Archive</h1>
             <p className="font-serif text-sm italic text-[#D5C29D]">
                 (Expansion content goes here! You can map out new clickable puzzles just like RoomStage.)
+            </p>
+            <p className="font-serif text-sm italic text-[#D5C29D]">
+                {/*new puzzle idhar */}
+                <UVPuzzle />
             </p>
             </div>
             {/*teleport back wala button */}

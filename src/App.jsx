@@ -25,9 +25,8 @@ export default function App() {
   const [selectedPuzzle, setSelectedPuzzle] = useState(null);
   const [isSanctumOpen, setIsSanctumOpen] = useState(false);
   const [isCurioOpen, setIsCurioOpen] = useState(false);
-  const [currentRoom, setCurrentRoom] = useState(() => {
-    return localStorage.getItem('cryptique_room') || 'attic';
-  });
+  const [currentRoom, setCurrentRoom] = useState('scrapbook');
+
   useEffect(() => {
     localStorage.setItem('cryptique_room', currentRoom);
   }, [currentRoom]);
