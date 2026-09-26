@@ -1,4 +1,4 @@
-import React, { useState } from 'react';                                                                                                                                                       
+import React, { useState, useEffect } from 'react';                                                                                                                                                       
 import { PUZZLES } from './data/puzzles.js';                                                                                                                                                   
 import TopHUD from './components/TopHUD.jsx';                                                                                                                                                  
 import RoomStage from './components/RoomStage.jsx';                                                                                                                                            
@@ -6,9 +6,17 @@ import DialogueDeck from './components/DialogueDeck.jsx';
 import InspectModal from './components/puzzle/InspectModal.jsx';                                                                                                                               
 import SanctumModal from './components/SanctumModal.jsx';                                                                                                                                      
 import CurioShelfModal from './components/curios/CurioShelfModal.jsx';
+import confetti from 'canvas-confetti';
+import ScrapbookRoom from './components/ScrapbookRoom.jsx';
 
 export default function App() {
-  const [solvedPuzzles, setSolvedPuzzles] = useState([]);
+  const [solvedPuzzles, setSolvedPuzzles] = useState(() => {
+    const saved = localStorage.getItem('cryptique_save');
+    return saved ? JSON.parse(saved) : [];
+  });
+  useEffect(() => {
+    localStorage.setItem('cryptique_save', JSON.stringify(solvedPuzzles));
+  }, [solvedPuzzles]);
   const [isMuted, setIsMuted] = useState(false);
   const [dialogueMood, setDialogueMood] = useState('neutral');
   const [activeDialogue, setActiveDialogue] = useState(
@@ -17,6 +25,12 @@ export default function App() {
   const [selectedPuzzle, setSelectedPuzzle] = useState(null);
   const [isSanctumOpen, setIsSanctumOpen] = useState(false);
   const [isCurioOpen, setIsCurioOpen] = useState(false);
+  const [currentRoom, setCurrentRoom] = useState(() => {
+    return localStorage.getItem('cryptique_room') || 'attic';
+  });
+  useEffect(() => {
+    localStorage.setItem('cryptique_room', currentRoom);
+  }, [currentRoom]);
 
   const handleSelectPuzzle = (puzzle) => {
     const isUnlocked = 
@@ -46,6 +60,14 @@ export default function App() {
     setSolvedPuzzles((prev) => [...prev, selectedPuzzle.id]);
     setActiveDialogue(`Splendid work! The seal on ${selectedPuzzle.title} has shattered!`);                                                                                                    
     setDialogueMood('happy');
+
+    confetti({
+      particleCount: 80,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#C59B4B', '#F4EBD9', '#8B3A22'],
+      disableForReducedMotion: true
+    });
   };
 
   const handleBarnabyClick = () => {
@@ -82,6 +104,7 @@ export default function App() {
           onOpenCurios={() => setIsCurioOpen(true)}
       />
       <div className="w-full h-full relative">
+        {currentRoom === 'attic' ? (
         <RoomStage
           puzzles={PUZZLES}
           solvedPuzzles={solvedPuzzles}
@@ -89,6 +112,9 @@ export default function App() {
           onBarnabyClick={handleBarnabyClick}
           onSanctumClick={handleSanctumClick}
         />
+        ) : (
+          <ScrapbookRoom onReturn={() => setCurrentRoom('attic')} />
+        )}
         <DialogueDeck
           dialogue={activeDialogue}
           mood={dialogueMood}
@@ -108,6 +134,10 @@ export default function App() {
         isOpen={isSanctumOpen}
         onClose={() => setIsSanctumOpen(false)}
         rank={getRank()}
+        onEnterExpansion={() => {
+          setIsSanctumOpen(false);
+          setCurrentRoom('scrapbook');
+        }}
       />
       <CurioShelfModal
         isOpen={isCurioOpen}

@@ -33,7 +33,7 @@ export default function RoomStage({
       />
 
       <div
-        className="absolute cursor-pointer group"
+        className="absolute cursor-help group"
         style={{ left: '44.53%', top: '6.67%', width: '10.94%', zIndex: 3 }}
         onClick={onSanctumClick}
         title="Master Sanctum"
@@ -81,7 +81,7 @@ export default function RoomStage({
       />
 
       <div
-        className="absolute cursor-pointer group"
+        className="absolute cursor-help group"
         style={{ left: '82.19%', top: '7.22%', width: '8.59%', zIndex: 7 }}
         onClick={onBarnabyClick}
         title="Click Barnaby for advice"
@@ -110,7 +110,7 @@ export default function RoomStage({
               width: puzzle.placement.width,
               zIndex: puzzle.placement.zIndex,
             }}
-            className={`absolute cursor-pointer transition-transform duration-200 group ${
+            className={`absolute cursor-zoom-in transition-transform duration-200 group ${
               unlocked ? 'hover:scale-110' : 'opacity-60 cursor-not-allowed'
             }`}
           >

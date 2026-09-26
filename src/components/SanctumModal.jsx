@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import confetti from 'canvas-confetti';
 import { X, Award, Sparkles, ScrollText, CheckCircle2 } from 'lucide-react';
 
-export default function SanctumModal({ isOpen, onClose, rank = 'Master Archivist'}) {
+export default function SanctumModal({ isOpen, onClose, rank = 'Master Archivist', onEnterExpansion}) {
     useEffect(() => {
         if (isOpen) {
             confetti({
@@ -71,10 +71,10 @@ export default function SanctumModal({ isOpen, onClose, rank = 'Master Archivist
             </div>
   
             <button
-              onClick={onClose}
+              onClick={onEnterExpansion}
               className="px-6 py-2.5 bg-[#8B3A22] hover:bg-[#A34327] text-white rounded-lg font-serif text-xs uppercase tracking-wider font-bold shadow transition active:scale-95"
             >
-              Return to Study
+              Enter the Scrapbook
             </button>
           </div>
         </div>
