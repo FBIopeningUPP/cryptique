@@ -16,6 +16,7 @@ export default function App() {
   );
   const [selectedPuzzle, setSelectedPuzzle] = useState(null);
   const [isSanctumOpen, setIsSanctumOpen] = useState(false);
+  const [isCurioOpen, setIsCurioOpen] = useState(false);
 
   const handleSelectPuzzle = (puzzle) => {
     const isUnlocked = 
@@ -78,6 +79,7 @@ export default function App() {
         isMuted={isMuted}
         onToggleMute={() => setIsMuted(!isMuted)}
         rank={getRank()}
+          onOpenCurios={() => setIsCurioOpen(true)}
       />
       <div className="w-full h-full relative">
         <RoomStage

@@ -14,7 +14,7 @@ export default function TopHUD({
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(() => {});
-      setIsFullScreen(false);
+      setIsFullScreen(true);
     } else {
       document.exitFullscreen().catch(() => {});
       setIsFullScreen(false);
@@ -82,11 +82,11 @@ export default function TopHUD({
             </button>                                                                                                                                                                              
                                                                                                                                                                                                    
             <button                                                                                                                                                                                
-              onClick={toggleFullscreen}                                                                                                                                                           
+              onClick={toggleFullScreen}                                                                                                                                                           
               className="p-1.5 rounded text-[#D5C29D] hover:text-[#C59B4B] hover:bg-[#3D2C20] transition-colors hidden sm:inline-flex"                                                             
-              title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}                                                                                                                              
+              title={isFullScreen ? 'Exit Fullscreen' : 'Fullscreen'}                                                                                                                              
             >                                                                                                                                                                                      
-              {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}                                                                                               
+              {isFullScreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}                                                                                               
             </button>                                                                                                                                                                              
           </div>                                                                                                                                                                                   
         </div>                                                                                                                                                                                     
