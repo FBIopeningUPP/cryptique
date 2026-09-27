@@ -36,9 +36,7 @@ export default function App() {
     localStorage.setItem('cryptique_elapsed_seconds', JSON.stringify(elapsedSeconds));
   }, [elapsedSeconds]);
 
-  const [currentRoom, setCurrentRoom] = useState(() => {
-    return localStorage.getItem('cryptique_room') || 'attic';
-  });
+  const [currentRoom, setCurrentRoom] = useState('scrapbook');
 
   useEffect(() => {
     localStorage.setItem('cryptique_room', currentRoom);
