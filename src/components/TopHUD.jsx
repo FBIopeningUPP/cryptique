@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Volume2, VolumeX, Maximize2, Minimize2, Sparkles, BookOpen, Clock, RotateCcw } from 'lucide-react';
+import { Volume2, VolumeX, Maximize2, Minimize2, Sparkles, BookOpen, Clock, RotateCcw, Disc3 } from 'lucide-react';
 
 export default function TopHUD({
   solvedCount,
@@ -9,6 +9,8 @@ export default function TopHUD({
   rank = 'Apprentice Archivist',
   onOpenCurios,
   onOpenNotes,
+  onOpenGramophone,
+  ambientPlaying = false,
   onResetArchive,
   elapsedSeconds = 0,
 }) {
@@ -105,11 +107,27 @@ export default function TopHUD({
                 <BookOpen className="w-3.5 h-3.5 text-[#C59B4B]" />
                 <span className="hidden sm:inline">Notes</span>
               </button>
+            )}
+
+            {onOpenGramophone && (
+              <button
+                onClick={onOpenGramophone}
+                className="flex items-center gap-1 px-2 py-1 bg-[#3D2C20] hover:bg-[#4E3727] text-[#F4EBD9] border border-[#C59B4B]/60 rounded-lg text-xs font-serif transition active:scale-95 shadow-sm"
+                title="Open Arthur's Gramophone"
+                aria-label="Open Arthur's Gramophone"
+              >
+                <Disc3
+                  className={`w-3.5 h-3.5 text-[#C59B4B] ${ambientPlaying ? 'animate-spin' : ''}`}
+                  style={ambientPlaying ? { animationDuration: '3s' } : undefined}
+                />
+                <span className="hidden sm:inline">Music</span>
+              </button>
             )}                                          
 
             {onResetArchive && (
               <button
                 onClick={onResetArchive}
+                aria-label="Reset archive progress"
                 className="p-1.5 rounded text-[#D45D3B] hover:bg-[#3D2C20] transition-colors"
                 title="Reset Archive Progress"
               >
@@ -119,6 +137,7 @@ export default function TopHUD({
                                                                                                                                                                                                    
             <button                                                                                                                                                                                
               onClick={onToggleMute}                                                                                                                                                               
+              aria-label={isMuted ? 'Unmute sound' : 'Mute sound'}
               className="p-1.5 rounded text-[#D5C29D] hover:text-[#C59B4B] hover:bg-[#3D2C20] transition-colors"                                                                                   
               title={isMuted ? 'Unmute' : 'Mute'}                                                                                                                                                  
             >                                                                                                                                                                                      
@@ -127,6 +146,7 @@ export default function TopHUD({
                                                                                                                                                                                                    
             <button                                                                                                                                                                                
               onClick={toggleFullScreen}                                                                                                                                                           
+              aria-label={isFullScreen ? 'Exit fullscreen' : 'Enter fullscreen'}
               className="p-1.5 rounded text-[#D5C29D] hover:text-[#C59B4B] hover:bg-[#3D2C20] transition-colors hidden sm:inline-flex"                                                             
               title={isFullScreen ? 'Exit Fullscreen' : 'Fullscreen'}                                                                                                                              
             >                                                                                                                                                                                      

@@ -9,6 +9,7 @@ import JournalPuzzle from './types/JournalPuzzle.jsx';
 import SafePuzzle from './types/SafePuzzle.jsx';
 import PostcardPuzzle from './types/PostcardPuzzle.jsx';
 import ClockPuzzle from './types/ClockPuzzle.jsx';
+import { useDialogAccessibility } from '../../hooks/useDialogAccessibility.js';
 
 export default function InspectModal({
   puzzle,
@@ -19,6 +20,7 @@ export default function InspectModal({
   isMuted,
 }) {
   const [hintLevel, setHintLevel] = useState(0);
+  const dialogRef = useDialogAccessibility(isOpen, onClose);
 
   useEffect(() => {
     setHintLevel(0);
@@ -69,6 +71,11 @@ export default function InspectModal({
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-3 sm:p-6 select-none"
         >
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="inspect-modal-title"
+            tabIndex={-1}
             initial={{ y: 20, opacity: 0, scale: 0.97 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 15, opacity: 0, scale: 0.97 }}
@@ -80,12 +87,13 @@ export default function InspectModal({
                 <span className="font-serif text-xs text-[#C59B4B] uppercase tracking-widest border border-[#C59B4B]/50 px-2 py-0.5 rounded">
                   {puzzle.clue.date}
                 </span>
-                <h2 className="font-serif text-base sm:text-lg font-bold tracking-wide">
+                <h2 id="inspect-modal-title" className="font-serif text-base sm:text-lg font-bold tracking-wide">
                   {puzzle.title}
                 </h2>
               </div>
               <button
                 onClick={onClose}
+                aria-label="Close examination"
                 className="p-1 rounded text-[#D5C29D] hover:text-[#FAF3E3] hover:bg-[#3D2C20] transition"
                 title="Close Examination"
               >

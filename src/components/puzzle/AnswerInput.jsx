@@ -34,7 +34,7 @@ export default function AnswerInput({
 
     if (isSolved) {
         return (
-            <div className="flex items-center justify-center gap-2 bg-[#2E3B2E] border-2 border-[#5A7A5A] text-[#D8E6D8] px-4 py-3 rounded-xl font-serif text-sm shadow-md">
+            <div role="status" className="flex items-center justify-center gap-2 bg-[#2E3B2E] border-2 border-[#5A7A5A] text-[#D8E6D8] px-4 py-3 rounded-xl font-serif text-sm shadow-md">
                 <Check className="w-5 h-5 text-[#88C088]"/>
                 <span>Seal Broken & Deciphered</span>
             </div>
@@ -53,6 +53,8 @@ export default function AnswerInput({
             </div>
             <input
               type="text"
+              aria-label="Puzzle answer"
+              aria-invalid={hasError}
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value.toUpperCase())}
               placeholder={placeholder}
@@ -72,7 +74,7 @@ export default function AnswerInput({
             </button>
           </motion.div>
           {hasError && (
-            <p className="text-[#8B3A22] text-xs font-serif italic text-center mt-1.5 font-semibold">
+            <p role="alert" className="text-[#8B3A22] text-xs font-serif italic text-center mt-1.5 font-semibold">
               The lock resists... That answer is incorrect.
             </p>
           )}

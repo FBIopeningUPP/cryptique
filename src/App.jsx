@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';                                                                                                                                                       
+import React, { useState, useEffect, useRef } from 'react';                                                                                                                                                       
 import { PUZZLES } from './data/puzzles.js';                                                                                                                                                   
 import TopHUD from './components/TopHUD.jsx';                                                                                                                                                  
 import RoomStage from './components/RoomStage.jsx';                                                                                                                                            
@@ -9,6 +9,8 @@ import CurioShelfModal from './components/curios/CurioShelfModal.jsx';
 import confetti from 'canvas-confetti';
 import ScrapbookRoom from './components/ScrapbookRoom.jsx';
 import ScratchpadDrawer from './tools/ScratchpadDrawer.jsx';
+import GramophoneModal from './components/audio/GramophoneModal.jsx';
+import { playAmbient, resumeAmbientContext, stopAmbient, setAmbientVolume, AMBIENT_TRACK_IDS } from './logic/ambientAudio.js';
 
 const PUZZLE_COUNT = PUZZLES.length;
 const INITIAL_DIALOGUE = "Hoo! You must be Arthur's kin. The ledger is sealed tight, but that envelope on the desk carries his very first clue. Click on it to begin!";
@@ -70,6 +72,17 @@ export default function App() {
   const [isSanctumOpen, setIsSanctumOpen] = useState(false);
   const [isCurioOpen, setIsCurioOpen] = useState(false);
   const [isNotesOpen, setIsNotesOpen] = useState(false);
+  const [isGramophoneOpen, setIsGramophoneOpen] = useState(false);
+  const [ambientTrack, setAmbientTrack] = useState(() => {
+    const saved = readStoredText('cryptique_ambient_track', 'none');
+    return AMBIENT_TRACK_IDS.includes(saved) ? saved : 'none';
+  });
+  const [ambientVolume, setAmbientVolumeState] = useState(() => {
+    const saved = readStoredJson('cryptique_ambient_volume', 0.55);
+    return Number.isFinite(saved) ? Math.min(1, Math.max(0, saved)) : 0.55;
+  });
+  const ambientVolumeRef = useRef(ambientVolume);
+  ambientVolumeRef.current = ambientVolume;
   const [elapsedSeconds, setElapsedSeconds] = useState(() => {
     const saved = readStoredJson('cryptique_elapsed_seconds', 0);
     return Number.isFinite(saved) && saved >= 0 ? Math.floor(saved) : 0;
@@ -88,6 +101,33 @@ export default function App() {
   useEffect(() => {
     writeStoredValue('cryptique_room', currentRoom);
   }, [currentRoom]);
+
+  useEffect(() => {
+    writeStoredValue('cryptique_ambient_track', ambientTrack);
+  }, [ambientTrack]);
+
+  useEffect(() => {
+    writeStoredValue('cryptique_ambient_volume', JSON.stringify(ambientVolume));
+  }, [ambientVolume]);
+
+  useEffect(() => {
+    if (isMuted || ambientTrack === 'none') {
+      stopAmbient();
+      return undefined;
+    }
+    playAmbient(ambientTrack, ambientVolumeRef.current);
+    return () => stopAmbient();
+  }, [isMuted, ambientTrack]);
+
+  useEffect(() => {
+    setAmbientVolume(ambientVolume);
+  }, [ambientVolume]);
+
+  useEffect(() => {
+    const resume = () => resumeAmbientContext();
+    window.addEventListener('pointerdown', resume, { once: true });
+    return () => window.removeEventListener('pointerdown', resume);
+  }, []);
 
   useEffect(() => {
     if (solvedPuzzles.length >= PUZZLE_COUNT) return;
@@ -176,6 +216,8 @@ export default function App() {
         rank={getRank()}
         onOpenCurios={() => setIsCurioOpen(true)}
         onOpenNotes={() => setIsNotesOpen(true)}
+        onOpenGramophone={() => setIsGramophoneOpen(true)}
+        ambientPlaying={ambientTrack !== 'none' && !isMuted}
         onResetArchive={() => {
           if (window.confirm("Reset all archive progress?")) {
             setSolvedPuzzles([]);
@@ -186,6 +228,8 @@ export default function App() {
             setIsSanctumOpen(false);
             setIsCurioOpen(false);
             setIsNotesOpen(false);
+            setIsGramophoneOpen(false);
+            setAmbientTrack('none');
             setActiveDialogue(INITIAL_DIALOGUE);
             setDialogueMood('neutral');
           }
@@ -242,6 +286,15 @@ export default function App() {
         isOpen={isNotesOpen}
         onClose={() => setIsNotesOpen(false)}
         isMuted={isMuted}
+      />
+      <GramophoneModal
+        isOpen={isGramophoneOpen}
+        onClose={() => setIsGramophoneOpen(false)}
+        isMuted={isMuted}
+        track={ambientTrack}
+        volume={ambientVolume}
+        onTrackChange={setAmbientTrack}
+        onVolumeChange={setAmbientVolumeState}
       />
     </div>
   );

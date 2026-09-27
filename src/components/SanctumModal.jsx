@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { X, Award, Sparkles, CheckCircle2, Printer, ArrowRight, BookOpen } from 'lucide-react';
 import ScrapbookViewer from './reveal/ScrapbookViewer.jsx';
+import { useDialogAccessibility } from '../hooks/useDialogAccessibility.js';
 
 export default function SanctumModal({
   isOpen,
@@ -14,6 +15,7 @@ export default function SanctumModal({
 }) {
   const [viewMode, setViewMode] = useState('album');
   const [playerName, setPlayerName] = useState('Archivist');
+  const dialogRef = useDialogAccessibility(isOpen, onClose);
 
   useEffect(() => {
     if (isOpen) {
@@ -42,11 +44,19 @@ export default function SanctumModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-3 sm:p-6 select-none">
-      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-[#F7EFE1] border-4 border-[#C59B4B] rounded-2xl shadow-[0_16px_50px_rgba(0,0,0,0.9)] p-5 sm:p-7 flex flex-col items-center gap-4 text-center">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="sanctum-modal-title"
+        tabIndex={-1}
+        className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-[#F7EFE1] border-4 border-[#C59B4B] rounded-2xl shadow-[0_16px_50px_rgba(0,0,0,0.9)] p-5 sm:p-7 flex flex-col items-center gap-4 text-center"
+      >
         
         {/* Close Button */}
         <button
           onClick={onClose}
+          aria-label="Close sanctum"
           className="absolute top-3 right-3 p-1.5 rounded-lg text-[#8C6F56] hover:text-[#2D1F17] hover:bg-[#EFE2CE] transition"
           title="Close Sanctum"
         >
@@ -67,7 +77,7 @@ export default function SanctumModal({
             <Sparkles className="w-4 h-4 text-[#C59B4B]" />
             <span>Master Sanctum Unsealed</span>
           </div>
-          <h1 className="font-serif text-xl sm:text-2xl font-bold text-[#2D1F17] mt-0.5 tracking-wide">
+          <h1 id="sanctum-modal-title" className="font-serif text-xl sm:text-2xl font-bold text-[#2D1F17] mt-0.5 tracking-wide">
             {viewMode === 'album' ? "Uncle Arthur's Scrapbook" : "The Archivist's Final Ledger"}
           </h1>
         </div>

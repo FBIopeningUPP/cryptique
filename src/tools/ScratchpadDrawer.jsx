@@ -5,6 +5,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage.js';
 import { applyCaesarShift } from '../logic/cipherEngine.js';
 import { textToMorse, compileMorseSchedule } from '../logic/morseEngine.js';
 import { playMorseTone, playMechanicalClick } from '../logic/audioEngine.js'; 
+import { useDialogAccessibility } from '../hooks/useDialogAccessibility.js';
 
 export default function ScratchpadDrawer({isOpen, onClose, isMuted = false}) {
     const [activeTab, setActiveTab] = useState('notes');
@@ -16,6 +17,7 @@ export default function ScratchpadDrawer({isOpen, onClose, isMuted = false}) {
     const [morseInput, setMorseInput] = useState('');
     const [isTransmitting, setIsTransmitting] = useState(false);
     const transmissionTimeoutsRef = useRef([]);
+    const dialogRef = useDialogAccessibility(isOpen, onClose);
 
     useEffect(() => {
         if (!isOpen) setIsTransmitting(false);
@@ -70,6 +72,11 @@ export default function ScratchpadDrawer({isOpen, onClose, isMuted = false}) {
               />                                                                                                                                                                                                                                                           
                                                                                                                                                                                                                                                                            
               <motion.div                                                                                                                                                                                                                                                  
+                ref={dialogRef}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="notebook-title"
+                tabIndex={-1}
                 initial={{ x: '100%' }}                                                                                                                                                                                                                                    
                 animate={{ x: 0 }}                                                                                                                                                                                                                                         
                 exit={{ x: '100%' }}                                                                                                                                                                                                                                       
@@ -79,12 +86,13 @@ export default function ScratchpadDrawer({isOpen, onClose, isMuted = false}) {
                 <div className="flex items-center justify-between px-5 py-3.5 bg-[#1C140E] border-b-2 border-[#543D2D]">                                                                                                                                                   
                   <div className="flex items-center gap-2 text-[#F4EBD9]">                                                                                                                                                                                                 
                     <BookOpen className="w-5 h-5 text-[#C59B4B]" />                                                                                                                                                                                                        
-                    <h3 className="font-serif text-base sm:text-lg font-bold tracking-wide">                                                                                                                                                                               
+                    <h3 id="notebook-title" className="font-serif text-base sm:text-lg font-bold tracking-wide">
                       Archivist's Field Notebook                                                                                                                                                                                                                           
                     </h3>                                                                                                                                                                                                                                                  
                   </div>                                                                                                                                                                                                                                                   
                   <button                                                                                                                                                                                                                                                  
                     onClick={onClose}                                                                                                                                                                                                                                      
+                    aria-label="Close field notebook"
                     className="p-1 rounded-lg text-[#D5C29D] hover:text-[#FAF3E3] hover:bg-[#3D2C20] transition"                                                                                                                                                           
                     title="Close Notebook"                                                                                                                                                                                                                                 
                   >                                                                                                                                                                                                                                                        

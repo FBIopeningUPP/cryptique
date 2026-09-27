@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles, BookOpen, Lock, ArrowLeft } from 'lucide-react';
 import { playMechanicalClick } from '../../logic/audioEngine.js';
+import { useDialogAccessibility } from '../../hooks/useDialogAccessibility.js';
 
 const CURIO_LORE = {
   curio_magnifier: {
@@ -50,6 +51,7 @@ const CURIO_LORE = {
 
 export default function CurioShelfModal({ isOpen, onClose, solvedPuzzles = [], puzzles = [], isMuted = false }) {
   const [selectedCurio, setSelectedCurio] = useState(null);
+  const dialogRef = useDialogAccessibility(isOpen, onClose);
 
   if (!isOpen) return null;
 
@@ -63,13 +65,20 @@ export default function CurioShelfModal({ isOpen, onClose, solvedPuzzles = [], p
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-3 sm:p-6 select-none">
-      <div className="relative w-full max-w-3xl max-h-[92vh] flex flex-col bg-[#241A13] border-4 border-[#543D2D] rounded-2xl shadow-[0_16px_50px_rgba(0,0,0,0.9)] overflow-hidden">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="curio-modal-title"
+        tabIndex={-1}
+        className="relative w-full max-w-3xl max-h-[92vh] flex flex-col bg-[#241A13] border-4 border-[#543D2D] rounded-2xl shadow-[0_16px_50px_rgba(0,0,0,0.9)] overflow-hidden"
+      >
         
         <div className="flex items-center justify-between px-6 py-4 bg-[#1C140E] border-b-2 border-[#543D2D]">
           <div className="flex items-center gap-3">
             <Sparkles className="w-5 h-5 text-[#C59B4B]" />
             <div>
-              <h2 className="font-serif text-lg sm:text-xl font-bold text-[#F4EBD9] tracking-wide">
+              <h2 id="curio-modal-title" className="font-serif text-lg sm:text-xl font-bold text-[#F4EBD9] tracking-wide">
                 Arthur's Curio Cabinet
               </h2>
               <span className="font-serif text-xs text-[#C59B4B] tracking-wider uppercase">
@@ -80,6 +89,7 @@ export default function CurioShelfModal({ isOpen, onClose, solvedPuzzles = [], p
 
           <button
             onClick={onClose}
+            aria-label="Close curio cabinet"
             className="p-1.5 rounded-lg text-[#D5C29D] hover:text-[#FAF3E3] hover:bg-[#3D2C20] transition"
             title="Close Cabinet"
           >

@@ -42,13 +42,18 @@ export default function StarMapPuzzle({ isOpen, onClose }) {
                alt="Star Map"
                className="absolute inset-0 w-full h-full object-cover opacity-80"
                />
-            {Stars.map((star) => {
-                const isSelcted = sequence.includes(star.id);
+            {STARTS.map((star) => {
+                const isSelected = sequence.includes(star.id);
                 return (
                     <div 
                        key={star.id}
-                       onClick=
-                )
+                       onClick={() => handleStarClick(star.id)}
+                       className={`absolute w-8 h-8 -ml-4 -mt-4 rounded-full cursor-pointer transition-all duration-300 flex items-center justify-center ${isSelected ? 'bg-white/30 shadow-[0_0_15px_rgba(255,255,255,0.8)]' : 'hover:bg-white/10'}`}
+                       style={{ left: `${star.x}%`, top: `${star.y}%` }}
+                    >
+                        <div className={`w-2 h-2 rounded-full ${isSelected ? 'bg-white shadow-[0_0_10px_white]' : 'bg-[#D5C29D] shadow-[0_0_5px_#C59B4B]'}`} />
+                    </div>
+                );
             })}   
             </div>
         </div>
