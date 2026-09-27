@@ -91,8 +91,15 @@ export default function App() {
   };
 
   const handleBarnabyClick = () => {
-    setActiveDialogue("Hoo! Need some guidance? Take a close look at the clues scattered around the study!");                                                                                  
-    setDialogueMood('thinking');
+    const nextUnsolved = PUZZLES.find((p) => !solvedPuzzles.includes(p.id));
+    if (!nextUnsolved) {
+      setActiveDialogue("Hoo! All six seals are shattered! Head straight to the Master Sanctum chest atop the shelf!");
+      setDialogueMood('happy');
+    } else {
+      const hint = nextUnsolved.hints ? nextUnsolved.hints[0] : nextUnsolved.clue.promp;
+      setActiveDialogue(`Hoo! for ${nextUnsolved.title}: "${hint}"`);
+      setDialogueMood('thinking');
+    }
   };
 
   const handleSanctumClick = () => {                                                                                                                                                           
@@ -142,7 +149,7 @@ export default function App() {
           onSanctumClick={handleSanctumClick}
         />
         ) : (
-          <ScrapbookRoom onReturn={() => setCurrentRoom('attic')} />
+          <ScrapbookRoom onReturn={() => setCurrentRoom('attic')} isMuted={isMuted} />
         )}
         <DialogueDeck
           dialogue={activeDialogue}
