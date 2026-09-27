@@ -40,6 +40,12 @@ const CURIO_LORE = {
     entry:
       "Sent from the coast on Margaret's twentieth birthday. The pinpricks through the ink correspond directly to the summer constellations overhead. If you line Cygnus with the old chimney at twilight, you will find our secret haven.",
   },
+  curio_pocket_watch: {
+    year: '1947',
+    heading: "The Frozen Escapement",
+    entry:
+      "The mainspring snapped on a cold October night exactly at 11:45. Instead of replacing it, I kept it as a reminder that some moments are worth pausing indefinitely.",
+  },
 };
 
 export default function CurioShelfModal({ isOpen, onClose, solvedPuzzles = [], puzzles = [], isMuted = false }) {
@@ -98,9 +104,12 @@ export default function CurioShelfModal({ isOpen, onClose, solvedPuzzles = [], p
                   if (!reward) return null;
 
                   return (
-                    <div
+                    <button
+                      type="button"
                       key={reward.id}
                       onClick={() => handleSelectCurio(reward, isUnlocked)}
+                      disabled={!isUnlocked}
+                      aria-label={isUnlocked ? `Inspect ${reward.name}` : `Locked curio slot ${index + 1}`}
                       className={`relative aspect-square rounded-xl p-4 flex flex-col items-center justify-between border-2 transition-all duration-200 ${
                         isUnlocked
                           ? 'bg-[#2E1F16] border-[#C59B4B]/80 hover:border-[#FFE57F] hover:scale-105 cursor-pointer shadow-[0_4px_16px_rgba(197,155,75,0.2)]'
@@ -141,7 +150,7 @@ export default function CurioShelfModal({ isOpen, onClose, solvedPuzzles = [], p
                           </span>
                         )}
                       </div>
-                    </div>
+                    </button>
                   );
                 })}
               </motion.div>

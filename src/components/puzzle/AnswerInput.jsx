@@ -1,4 +1,4 @@
-import React, { useState } from 'react';                                                                                                                                                       
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';                                                                                                                                                        
 import { KeyRound, Check } from 'lucide-react';                                                                                                                                                
 import { verifyAnswer } from '../../logic/cipherEngine.js';                                                                                                                                    
@@ -13,6 +13,9 @@ export default function AnswerInput({
 }) {
     const [inputVal, setInputVal] = useState('');
     const [hasError, setHasError] = useState(false);
+    const errorTimeoutRef = useRef(null);
+
+    useEffect(() => () => clearTimeout(errorTimeoutRef.current), []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -24,7 +27,8 @@ export default function AnswerInput({
         } else {
             playSealStamp(isMuted);
             setHasError(true);
-            setTimeout(() => setHasError(false), 600);
+            clearTimeout(errorTimeoutRef.current);
+            errorTimeoutRef.current = setTimeout(() => setHasError(false), 600);
         }
     };
 

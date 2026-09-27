@@ -10,18 +10,20 @@ export default function SanctumModal({
   onEnterExpansion,
   elapsedSeconds = 0,
   isMuted = false,
+  totalSealCount = 6,
 }) {
-  const [viewMode, setViewMode] = useState('certificate'); 
+  const [viewMode, setViewMode] = useState('album');
   const [playerName, setPlayerName] = useState('Archivist');
 
   useEffect(() => {
     if (isOpen) {
-      setViewMode('certificate');
+      setViewMode('album');
       confetti({
         particleCount: 110,
         spread: 85,
         origin: { y: 0.55 },
         colors: ['#C59B4B', '#8B3A22', '#F4EBD9', '#2E3B2E'],
+        disableForReducedMotion: true,
       });
     }
   }, [isOpen]);
@@ -116,7 +118,7 @@ export default function SanctumModal({
               <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
                 <div className="flex items-center gap-1 text-xs text-[#2E3B2E] font-serif font-bold bg-[#D4E4D4] px-3 py-1 rounded-full border border-[#5A7A5A]">
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#4A7C4A]" />
-                  <span>All 6 Master Seals Restored</span>
+                  <span>All {totalSealCount} Master Seals Restored</span>
                 </div>
 
                 <div className="text-xs font-mono text-[#8C6F56] bg-[#EDE2CE] px-3 py-1 rounded-full border border-[#D5C29D]">

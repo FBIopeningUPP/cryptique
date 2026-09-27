@@ -47,6 +47,21 @@
             'parchment': '0 4px 20px -2px rgba(35, 27, 21, 0.08), 0 2px 6px -1px rgba(35, 27, 21, 0.04)',
             'seal': '0 4px 12px rgba(178, 83, 62, 0.35)',
           },
+          keyframes: {
+            'fade-in': {
+              from: { opacity: '0' },
+              to: { opacity: '1' },
+            },
+            'shake': {
+              '0%, 100%': { transform: 'translateX(0)' },
+              '10%, 50%, 90%': { transform: 'translateX(-4px)' },
+              '30%, 70%': { transform: 'translateX(4px)' },
+            },
+          },
+          animation: {
+            'fade-in': 'fade-in 200ms ease-out',
+            'shake': 'shake 0.4s ease-in-out',
+          },
         },
       },
       plugins: [],

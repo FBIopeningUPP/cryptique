@@ -203,5 +203,37 @@ export const PUZZLES = [
       desc: "A hand-illustrated chart of the northern skies pointing directly to the treehouse coordinates.",
       icon: '/assets/curio_star_postcard.png'
     }
+  },
+  {
+    id: 'puzzle-7',
+    sealIndex: 6,
+    title: 'The Pendulum Clock',
+    itemType: 'clock',
+    prerequisites: ['puzzle-2'],
+    acceptedAnswers: ['1145'],
+    placement: {
+      left: '79.69%',
+      top: '23.15%',
+      width: '13.54%',
+      zIndex: 5,
+      sealedSrc: '/assets/furniture_clock.png',
+      solvedSrc: '/assets/furniture_clock.png',
+      label: 'Pendulum Clock'
+    },
+    clue: {
+      date: 'Autumn, 1947',
+      prompt: "The old grandfather clock hasn't chimed since the night the treehouse was finished. Barnaby insisted the hands froze precisely at midnight... minus a fifteen-minute grace period.",
+    },
+    hints: [
+      "Read Barnaby's clue about the frozen time.",
+      "Midnight is 12:00. Minus 15 minutes is 11:45.",
+      "Use the controls to set the hour to 11 and minutes to 45."
+    ],
+    reward: {
+      id: 'curio_pocket_watch',
+      name: "Arthur's Silver Pocket Watch",
+      desc: "An intricately etched silver watch permanently frozen at a quarter to midnight.",
+      icon: '/assets/furniture_clock.png'
+    }
   }
 ];

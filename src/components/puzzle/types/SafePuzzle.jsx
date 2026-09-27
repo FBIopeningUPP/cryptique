@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { ChevronUp, ChevronDown, Lock, Unlock} from 'lucide-react';
 import { rotateTumbler, isCombinationCorrect } from '../../../logic/safeLockEngine.js';
 import { playMechanicalClick, playSuccessChime, playSealStamp } from '../../../logic/audioEngine.js';
@@ -6,6 +6,9 @@ import { playMechanicalClick, playSuccessChime, playSealStamp } from '../../../l
 export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
     const [dials, setDials] = useState([0, 0, 0, 0]);
     const [errorShake, setErrorShake] = useState(false);
+    const errorTimeoutRef = useRef(null);
+
+    useEffect(() => () => clearTimeout(errorTimeoutRef.current), []);
 
     const handleDialStep = (idx, delta) => {
         if (isSolved) return;
@@ -20,12 +23,13 @@ export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
         } else {
             playSealStamp(isMuted);
             setErrorShake(true);
-            setTimeout(() => setErrorShake(false), 500);
+            clearTimeout(errorTimeoutRef.current);
+            errorTimeoutRef.current = setTimeout(() => setErrorShake(false), 500);
         }
     };
     return (                                                                                                                                                                                     
         <div className="flex flex-col items-center gap-4 w-full max-w-md bg-[#FAF3E3] border-2 border-[#543D2D] rounded-xl p-5 shadow-inner">                                                      
-          <div className={`relative aspect-square w-64 sm:w-72 rounded-xl overflow-hidden border border-[#D5C29D] shadow-md ${errorShake ? 'animate-bounce' : ''}`}>                               
+          <div className={`relative aspect-square w-64 sm:w-72 rounded-xl overflow-hidden border border-[#D5C29D] shadow-md ${errorShake ? 'animate-[shake_0.4s_ease-in-out]' : ''}`}>                               
             <img                                                                                                                                                                                   
               src="/assets/inspect_safe_faceplate.png"                                                                                                                                             
               alt="Clockwork Safe Faceplate"                                                                                                                                                       

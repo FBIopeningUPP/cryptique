@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ZoomIn } from 'lucide-react';
 
-export default function PostcardPuzzle() {
+export default function PostcardPuzzle({puzzle, isMuted}) {
     const [isAssembled, setIsAssembled] = useState(false);
     const [showStampZoom, setShowStampZoom] = useState(false);
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, HelpCircle, ChevronRight, Award, PlugZap } from 'lucide-react';
+import { X, HelpCircle, ChevronRight, Award } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnswerInput from './AnswerInput.jsx';
 import LetterPuzzle from './types/LetterPuzzle.jsx';
@@ -8,6 +8,7 @@ import TelegraphPuzzle from './types/TelegraphPuzzle.jsx';
 import JournalPuzzle from './types/JournalPuzzle.jsx';
 import SafePuzzle from './types/SafePuzzle.jsx';
 import PostcardPuzzle from './types/PostcardPuzzle.jsx';
+import ClockPuzzle from './types/ClockPuzzle.jsx';
 
 export default function InspectModal({
   puzzle,
@@ -44,6 +45,15 @@ export default function InspectModal({
         );
       case 'puzzle-6':
         return <PostcardPuzzle puzzle={puzzle} isMuted={isMuted} />;
+      case 'puzzle-7':
+        return (
+          <ClockPuzzle
+            puzzle={puzzle}
+            isSolved={isSolved}
+            onSolve={onSolve}
+            isMuted={isMuted}
+          />
+        );
       default:
         return null;
     }
@@ -63,7 +73,7 @@ export default function InspectModal({
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 15, opacity: 0, scale: 0.97 }}
             transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-            className="relative w-full max-w-4xl max-h-[92vh] flex flex-col bg-[#F7EFE1] border-4 border-[#543D2D] rounded-2xl shadow- [0_12px_40px_rgba(0,0,0,0.8)] overflow-hidden"
+            className="relative w-full max-w-4xl max-h-[92vh] flex flex-col bg-[#F7EFE1] border-4 border-[#543D2D] rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.8)] overflow-hidden"
           >
             <div className="flex items-center justify-between px-5 py-3 bg-[#2D1F17] border-b-2 border-[#543D2D] text-[#F4EBD9]">
               <div className="flex items-center gap-3">
@@ -84,7 +94,7 @@ export default function InspectModal({
             </div>
 
             <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-4">
-              <p className="font-serif text-sm sm:text-base text-[#3C2A1E] italic bg-[#EDE2CE] border border-[#D5C29D] p-3 rounded-xl leading- relaxed">
+              <p className="font-serif text-sm sm:text-base text-[#3C2A1E] italic bg-[#EDE2CE] border border-[#D5C29D] p-3 rounded-xl leading-relaxed">
                 "{puzzle.clue.prompt}"
               </p>
 
@@ -102,7 +112,7 @@ export default function InspectModal({
                     <button
                       type="button"
                       onClick={() => setHintLevel((prev) => Math.min(prev + 1, puzzle.hints.length))}
-                      className="font-serif text-[11px] text-[#2D1F17] hover:text-[#8B3A22] uppercase tracking-wider underline flex items- center gap-1 cursor-pointer"
+                      className="font-serif text-[11px] text-[#2D1F17] hover:text-[#8B3A22] uppercase tracking-wider underline flex items-center gap-1 cursor-pointer"
                     >
                       <span>Reveal Hint ({hintLevel + 1}/{puzzle.hints.length})</span>
                       <ChevronRight className="w-3 h-3" />
@@ -146,9 +156,10 @@ export default function InspectModal({
               )}
             </div>
 
-            {puzzle.id !== 'puzzle-5' && (
+            {!['safe', 'clock'].includes(puzzle.itemType) && (
               <div className="p-4 bg-[#EDE2CE] border-t-2 border-[#D5C29D]">
                 <AnswerInput
+                  key={puzzle.id}
                   acceptedAnswers={puzzle.acceptedAnswers}
                   onSolve={onSolve}
                   isSolved={isSolved}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, BookOpen, KeyRound, Radio, Trash2, Volume2 } from 'lucide-react';
 import { useLocalStorage } from '../hooks/useLocalStorage.js';
@@ -15,9 +15,19 @@ export default function ScratchpadDrawer({isOpen, onClose, isMuted = false}) {
 
     const [morseInput, setMorseInput] = useState('');
     const [isTransmitting, setIsTransmitting] = useState(false);
+    const transmissionTimeoutsRef = useRef([]);
+
+    useEffect(() => {
+        if (!isOpen) setIsTransmitting(false);
+
+        return () => {
+            transmissionTimeoutsRef.current.forEach(clearTimeout);
+            transmissionTimeoutsRef.current = [];
+        };
+    }, [isOpen]);
 
     const handleClearNotes = () => {
-        if (window.confirm("Clear all field notes in the scartchpad?")) {
+        if (window.confirm("Clear all field notes in the scratchpad?")) {
             setNotes('');
         }
     };
@@ -31,14 +41,19 @@ export default function ScratchpadDrawer({isOpen, onClose, isMuted = false}) {
         let delay = 0;
 
         schedule.forEach((step, idx) => {
-            setTimeout(() => {
+            const timeoutId = setTimeout(() => {
                 if (step.type === 'ON') {
                     playMorseTone(step.durationMs, 750, isMuted);
                 }
                 if (idx === schedule.length - 1) {
-                    setTimeout(() => setIsTransmitting(false), step.durationMs);
+                    const finishId = setTimeout(() => {
+                        setIsTransmitting(false);
+                        transmissionTimeoutsRef.current = [];
+                    }, step.durationMs);
+                    transmissionTimeoutsRef.current.push(finishId);
                 }
             }, delay);
+            transmissionTimeoutsRef.current.push(timeoutId);
             delay += step.durationMs;
         });
     };
