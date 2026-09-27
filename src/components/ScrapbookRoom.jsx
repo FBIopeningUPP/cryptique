@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import UVPuzzle from './UVPuzzle';
-import { playMechanicalClick } from '../logic/audioEngine';
+import UVPuzzle from './UVPuzzle.jsx';
+import { playMechanicalClick } from '../logic/audioEngine.js';
 
 const SOUVENIRS = {
   treehouse: {
     title: 'The Mountain Observatory (1954)',
     img: '/assets/treehouse.png',
     date: 'Autumn, 1954',
-    note: 'Where Margaret and i spent seven crisp nights catalging the Perseids meteor shower. The brass telescope we carried up that mountain still points steadily toward Cassiopeia.',
+    note: 'Where Margaret and I spent seven crisp nights cataloging the Perseids meteor shower. The brass telescope we carried up that mountain still points steadily toward Cassiopeia.',
   },
   train: {                                                                                                                                                                                                                                                             
     title: 'Continental Sleeper Ticket (1948)',                                                                                                                                                                                                                        
@@ -23,7 +23,7 @@ const SOUVENIRS = {
   },
 };
 
-export default function ScarpbookRoom({onReturn, isMuted = false}) {
+export default function ScrapbookRoom({onReturn, isMuted = false}) {
   const [activeSouvenir, setActiveSouvenir] = useState(null);
 
   const handleOpenSouvenir = (key) => {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { ChevronUp, ChevronDown, Lock, Unlock} from 'lucide-react';
 import { rotateTumbler, isCombinationCorrect } from '../../../logic/safeLockEngine.js';
 import { playMechanicalClick, playSuccessChime, playSealStamp } from '../../../logic/audioEngine.js';
@@ -6,6 +6,9 @@ import { playMechanicalClick, playSuccessChime, playSealStamp } from '../../../l
 export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
     const [dials, setDials] = useState([0, 0, 0, 0]);
     const [errorShake, setErrorShake] = useState(false);
+    const errorTimeoutRef = useRef(null);
+
+    useEffect(() => () => clearTimeout(errorTimeoutRef.current), []);
 
     const handleDialStep = (idx, delta) => {
         if (isSolved) return;
@@ -20,7 +23,8 @@ export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
         } else {
             playSealStamp(isMuted);
             setErrorShake(true);
-            setTimeout(() => setErrorShake(false), 500);
+            clearTimeout(errorTimeoutRef.current);
+            errorTimeoutRef.current = setTimeout(() => setErrorShake(false), 500);
         }
     };
     return (                                                                                                                                                                                     

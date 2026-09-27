@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Volume2, VolumeX, Maximize2, Minimize2, Sparkles, BookOpen, Clock, RotateCcw } from 'lucide-react';
 
 export default function TopHUD({
@@ -13,13 +13,23 @@ export default function TopHUD({
 }) {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
-  const toggleFullScreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-      setIsFullScreen(true);
-    } else {
-      document.exitFullscreen().catch(() => {});
-      setIsFullScreen(false);
+  useEffect(() => {
+    const syncFullScreenState = () => setIsFullScreen(Boolean(document.fullscreenElement));
+    document.addEventListener('fullscreenchange', syncFullScreenState);
+    syncFullScreenState();
+
+    return () => document.removeEventListener('fullscreenchange', syncFullScreenState);
+  }, []);
+
+  const toggleFullScreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch {
+      setIsFullScreen(Boolean(document.fullscreenElement));
     }
   };
 
@@ -27,7 +37,7 @@ export default function TopHUD({
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-  }
+  };
   
   return (                                                                                                                                                                                     
         <div className="fixed top-0 left-0 right-0 h-12 bg-[#2D1F17]/95 backdrop-blur-sm border-b-2 border-[#543D2D] z-40 px-4 sm:px-6 flex items-center justify-between shadow-md select-none">   

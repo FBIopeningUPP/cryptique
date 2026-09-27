@@ -1,5 +1,5 @@
-import React, {useState, useRef} from 'react';
-import { playSuccessChime, playMechanicalClick } from '../logic/audioEngine';
+import React, {useEffect, useRef, useState} from 'react';
+import { playSuccessChime, playMechanicalClick } from '../logic/audioEngine.js';
 
 export default function UVPuzzle({isMuted=false}) {
   const [mousePos, setMousePos] = useState({x: -1000, y: -1000});
@@ -7,8 +7,11 @@ export default function UVPuzzle({isMuted=false}) {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [errorShake, setErrorShake] = useState(false);
   const containerRef = useRef(null);
+  const resetTimeoutRef = useRef(null);
 
   const SECRET_CODE = '8241';
+
+  useEffect(() => () => clearTimeout(resetTimeoutRef.current), []);
 
   const updateCoordinates = (clientX, clientY) => {
     if (!containerRef.current) return;
@@ -41,7 +44,7 @@ export default function UVPuzzle({isMuted=false}) {
         playSuccessChime(isMuted);
       } else {
         setErrorShake(true);
-        setTimeout(() => {
+        resetTimeoutRef.current = setTimeout(() => {
           setEnteredCode('');
           setErrorShake(false);
         }, 700);
@@ -158,7 +161,7 @@ export default function UVPuzzle({isMuted=false}) {
             /* Reward Card when Unlocked */
             <div className="bg-[#1A120B]/95 border-2 border-[#D4AF37] rounded-xl p-5 shadow-2xl max-w-sm text-center animate-fade-in backdrop-blur-sm">
               <div className="text-2xl mb-1">🗝️ ✨</div>
-              <h3 className="font-serif font-bold text-lg text-[#F4EBD9] text-[#D4AF37]">
+              <h3 className="font-serif font-bold text-lg text-[#D4AF37]">
                 Margaret's Keepsake Locket
               </h3>
               <p className="font-serif italic text-xs text-[#C5A880] mt-2 leading-relaxed">

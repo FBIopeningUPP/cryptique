@@ -10,42 +10,74 @@ import confetti from 'canvas-confetti';
 import ScrapbookRoom from './components/ScrapbookRoom.jsx';
 import ScratchpadDrawer from './tools/ScratchpadDrawer.jsx';
 
+const PUZZLE_COUNT = PUZZLES.length;
+const INITIAL_DIALOGUE = "Hoo! You must be Arthur's kin. The ledger is sealed tight, but that envelope on the desk carries his very first clue. Click on it to begin!";
+
+function readStoredJson(key, fallback) {
+  try {
+    const storedValue = localStorage.getItem(key);
+    return storedValue === null ? fallback : JSON.parse(storedValue);
+  } catch {
+    return fallback;
+  }
+}
+
+function readStoredText(key, fallback) {
+  try {
+    return localStorage.getItem(key) ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeStoredValue(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // Progress remains available for the current session if storage is unavailable.
+  }
+}
+
 export default function App() {
   const [solvedPuzzles, setSolvedPuzzles] = useState(() => {
-    const saved = localStorage.getItem('cryptique_save');
-    return saved ? JSON.parse(saved) : [];
+    const saved = readStoredJson('cryptique_save', []);
+    if (!Array.isArray(saved)) return [];
+
+    const validPuzzleIds = new Set(PUZZLES.map(({ id }) => id));
+    return [...new Set(saved)].filter((id) => validPuzzleIds.has(id));
   });
   useEffect(() => {
-    localStorage.setItem('cryptique_save', JSON.stringify(solvedPuzzles));
+    writeStoredValue('cryptique_save', JSON.stringify(solvedPuzzles));
   }, [solvedPuzzles]);
   const [isMuted, setIsMuted] = useState(false);
   const [dialogueMood, setDialogueMood] = useState('neutral');
-  const [activeDialogue, setActiveDialogue] = useState(
-    "Hoo! You must be Arthur's kin. The ledger is sealed tight, but that envelope on the desk carries his very first clue. Click on it to begin!"
-  );
+  const [activeDialogue, setActiveDialogue] = useState(INITIAL_DIALOGUE);
   
   const [selectedPuzzle, setSelectedPuzzle] = useState(null);
   const [isSanctumOpen, setIsSanctumOpen] = useState(false);
   const [isCurioOpen, setIsCurioOpen] = useState(false);
   const [isNotesOpen, setIsNotesOpen] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(() => {
-    const saved = localStorage.getItem('cryptique_elapsed_seconds');
-    return saved ? JSON.parse(saved) : 0;
+    const saved = readStoredJson('cryptique_elapsed_seconds', 0);
+    return Number.isFinite(saved) && saved >= 0 ? Math.floor(saved) : 0;
   });
   useEffect(() => {
-    localStorage.setItem('cryptique_elapsed_seconds', JSON.stringify(elapsedSeconds));
+    writeStoredValue('cryptique_elapsed_seconds', JSON.stringify(elapsedSeconds));
   }, [elapsedSeconds]);
 
   const [currentRoom, setCurrentRoom] = useState(() => {
-    return localStorage.getItem('cryptique_room') || 'attic';
+    const savedRoom = readStoredText('cryptique_room', 'attic');
+    return savedRoom === 'scrapbook' && solvedPuzzles.length >= PUZZLE_COUNT
+      ? 'scrapbook'
+      : 'attic';
   });
 
   useEffect(() => {
-    localStorage.setItem('cryptique_room', currentRoom);
+    writeStoredValue('cryptique_room', currentRoom);
   }, [currentRoom]);
 
   useEffect(() => {
-    if (solvedPuzzles.length === 6) return;
+    if (solvedPuzzles.length >= PUZZLE_COUNT) return;
     const interval = setInterval(() => {
       setElapsedSeconds((prev) => prev + 1);
     }, 1000);
@@ -96,27 +128,27 @@ export default function App() {
       setActiveDialogue("Hoo! All six seals are shattered! Head straight to the Master Sanctum chest atop the shelf!");
       setDialogueMood('happy');
     } else {
-      const hint = nextUnsolved.hints ? nextUnsolved.hints[0] : nextUnsolved.clue.promp;
+      const hint = nextUnsolved.hints?.[0] ?? nextUnsolved.clue.prompt;
       setActiveDialogue(`Hoo! for ${nextUnsolved.title}: "${hint}"`);
       setDialogueMood('thinking');
     }
   };
 
   const handleSanctumClick = () => {                                                                                                                                                           
-    if (solvedPuzzles.length === 6) {                                                                                                                                                          
+    if (solvedPuzzles.length >= PUZZLE_COUNT) {
      setIsSanctumOpen(true);                                                                                                                                                                  
       setActiveDialogue("The six chains have fallen! Step into Arthur's Master Sanctum!");                                                                                                     
       setDialogueMood('happy');                                                                                                                                                                
     } else {                                                                                                                                                                                   
       setActiveDialogue(                                                                                                                                                                       
-        `The Master Sanctum is bound by six heavy chains (${solvedPuzzles.length}/6 broken). Solve all clues first!`                                                                           
+        `The Master Sanctum is bound by six heavy chains (${solvedPuzzles.length}/${PUZZLE_COUNT} broken). Solve all clues first!`
     );                                                                                                                                                                                       
       setDialogueMood('thinking');                                                                                                                                                             
     }                                                                                                                                                                                          
   };                                                                                                                                                                                           
                                                                                                                                                                                                
     const getRank = () => {                                                                                                                                                                      
-    if (solvedPuzzles.length === 6) return 'Master Archivist';                                                                                                                                 
+    if (solvedPuzzles.length >= PUZZLE_COUNT) return 'Master Archivist';
     if (solvedPuzzles.length >= 3) return 'Senior Archivist';                                                                                                                                  
     return 'Apprentice Archivist';                                                                                                                                                             
   };  
@@ -135,6 +167,12 @@ export default function App() {
             setSolvedPuzzles([]);
             setElapsedSeconds(0);
             setCurrentRoom('attic');
+            setSelectedPuzzle(null);
+            setIsSanctumOpen(false);
+            setIsCurioOpen(false);
+            setIsNotesOpen(false);
+            setActiveDialogue(INITIAL_DIALOGUE);
+            setDialogueMood('neutral');
           }
         }}
         elapsedSeconds={elapsedSeconds}
