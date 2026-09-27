@@ -16,11 +16,12 @@ export default function RoomStage({
   const isSolved = (puzzleId) => solvedPuzzles.includes(puzzleId);
 
   return (
-    <div className="relative w-full h-full overflow-hidden select-none">
+    <div className="relative w-full h-full overflow-hidden select-none bg-[#1E1712] flex items-center justify-center">
+      <div className="relative w-[min(100%,177.777vh)] aspect-video max-h-full">
       <img
         src="/assets/room_attic_empty.png"
         alt="Attic Study"
-        className="absolute inset-0 w-full h-full object-fill pointer-events-none"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
 
       <img
@@ -104,16 +105,26 @@ export default function RoomStage({
             }}
             aria-label={`${puzzle.placement.label}: ${solved ? 'solved' : unlocked ? 'available' : 'locked'}`}
             className={`absolute cursor-zoom-in transition-transform duration-200 group bg-transparent border-0 p-0 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FFE57F] focus-visible:outline-offset-2 ${
-              unlocked ? 'hover:scale-110' : 'opacity-60 cursor-not-allowed'
+              unlocked ? 'hover:scale-110' : 'cursor-not-allowed'
             }`}
           >
             <img
               src={solved ? puzzle.placement.solvedSrc : puzzle.placement.sealedSrc}
               alt={puzzle.placement.label}
               className={`w-full h-auto drop-shadow-md ${
-                isTarget ? 'filter drop-shadow-[0_0_12px_rgba(197,155,75,0.9)] animate-pulse' : ''
+                isTarget
+                  ? 'filter drop-shadow-[0_0_12px_rgba(197,155,75,0.9)] animate-pulse'
+                  : unlocked
+                    ? ''
+                    : 'brightness-75 saturate-50'
               }`}
             />
+
+            {!unlocked && (
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border border-[#C59B4B] bg-[#231B15]/95 text-[10px] shadow-md" aria-hidden="true">
+                🔒
+              </span>
+            )}
 
             <div className="absolute -top-7 left-1/2 -translate-x-1/2 bg-[#231B15] text-parchment-100 text-[10px] font-serif px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition pointer-events-none whitespace-nowrap z-50 border border-[#543D2D] shadow-md">
               {puzzle.placement.label} {solved ? '✓' : unlocked ? '(!)' : '🔒'}
@@ -121,6 +132,7 @@ export default function RoomStage({
           </button>
         );
       })}
+      </div>
     </div>
   );
 }
