@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Volume2, VolumeX, Maximize2, Minimize2, Sparkles } from 'lucide-react';
-import { steps } from 'framer-motion';
+import { Volume2, VolumeX, Maximize2, Minimize2, Sparkles, BookOpen, Clock, RotateCcw } from 'lucide-react';
 
 export default function TopHUD({
   solvedCount, 
@@ -8,6 +7,9 @@ export default function TopHUD({
   onToggleMute,
   rank = 'Apprentice Archivist',
   onOpenCurios,
+  onOpenNotes,
+  onResetArchive,
+  elapsedSeconds = 0,
 }) {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -20,6 +22,12 @@ export default function TopHUD({
       setIsFullScreen(false);
     }
   };
+
+  const formatTime = (totalSeconds) => {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  }
   
   return (                                                                                                                                                                                     
         <div className="fixed top-0 left-0 right-0 h-12 bg-[#2D1F17]/95 backdrop-blur-sm border-b-2 border-[#543D2D] z-40 px-4 sm:px-6 flex items-center justify-between shadow-md select-none">   
@@ -32,7 +40,11 @@ export default function TopHUD({
             <span className="font-serif text-xs sm:text-sm text-[#F4EBD9] tracking-wider uppercase font-semibold flex items-center gap-1.5">                                                       
               <span>Rank:</span>                                                                                                                                                                   
               <span className="text-[#C59B4B] font-bold">{rank}</span>                                                                                                                             
-            </span>                                                                                                                                                                                
+            </span>  
+            <div className="hidden lg:flex items-center gap-1 bg-[#1A120C] border border-[#543D2D] px-2 py-0.5 rounded text-[#D5C29D] font-mono text-xs">
+              <Clock className="w-3 h-3 text-[#C59B4B]" />
+              <span>{formatTime(elapsedSeconds)}</span>
+            </div>                                                                                                                                                                              
           </div>                                                                                                                                                                                   
                                                                                                                                                                                                    
           <div className="flex items-center gap-1.5 sm:gap-3">                                                                                                                                     
@@ -71,7 +83,28 @@ export default function TopHUD({
                   {solvedCount}/6                                                                                                                                                                  
                 </span>                                                                                                                                                                            
               </button>                                                                                                                                                                            
-            )}                                                                                                                                                                                     
+            )} 
+
+            {onOpenNotes && (
+              <button
+                onClick={onOpenNotes}
+                className="flex items-center gap-1 px-2 py-1 bg-[#3D2C20] hover:bg-[#4E3727] text-[#F4EBD9] border border-[#C59B4B]/60 rounded-lg text-xs font-serif transition active:scale-95 shadow-sm"
+                title="Open Field Notebook"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-[#C59B4B]" />
+                <span className="hidden sm:inline">Notes</span>
+              </button>
+            )}                                          
+
+            {onResetArchive && (
+              <button
+                onClick={onResetArchive}
+                className="p-1.5 rounded text-[#D45D3B] hover:bg-[#3D2C20] transition-colors"
+                title="Reset Archive Progress"
+              >
+                <RotateCcw className="w-4 h-4" />
+              </button>
+            )}                                                                                                                                          
                                                                                                                                                                                                    
             <button                                                                                                                                                                                
               onClick={onToggleMute}                                                                                                                                                               

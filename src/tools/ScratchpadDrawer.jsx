@@ -5,7 +5,6 @@ import { useLocalStorage } from '../hooks/useLocalStorage.js';
 import { applyCaesarShift } from '../logic/cipherEngine.js';
 import { textToMorse, compileMorseSchedule } from '../logic/morseEngine.js';
 import { playMorseTone, playMechanicalClick } from '../logic/audioEngine.js'; 
-import { del } from 'framer-motion/client';
 
 export default function ScratchpadDrawer({isOpen, onClose, isMuted = false}) {
     const [activeTab, setActiveTab] = useState('notes');

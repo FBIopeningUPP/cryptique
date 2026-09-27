@@ -8,6 +8,7 @@ import SanctumModal from './components/SanctumModal.jsx';
 import CurioShelfModal from './components/curios/CurioShelfModal.jsx';
 import confetti from 'canvas-confetti';
 import ScrapbookRoom from './components/ScrapbookRoom.jsx';
+import ScratchpadDrawer from './tools/ScratchpadDrawer.jsx';
 
 export default function App() {
   const [solvedPuzzles, setSolvedPuzzles] = useState(() => {
@@ -22,14 +23,34 @@ export default function App() {
   const [activeDialogue, setActiveDialogue] = useState(
     "Hoo! You must be Arthur's kin. The ledger is sealed tight, but that envelope on the desk carries his very first clue. Click on it to begin!"
   );
+  
   const [selectedPuzzle, setSelectedPuzzle] = useState(null);
   const [isSanctumOpen, setIsSanctumOpen] = useState(false);
   const [isCurioOpen, setIsCurioOpen] = useState(false);
-  const [currentRoom, setCurrentRoom] = useState('scrapbook');
+  const [isNotesOpen, setIsNotesOpen] = useState(false);
+  const [elapsedSeconds, setElapsedSeconds] = useState(() => {
+    const saved = localStorage.getItem('cryptique_elapsed_seconds');
+    return saved ? JSON.parse(saved) : 0;
+  });
+  useEffect(() => {
+    localStorage.setItem('cryptique_elapsed_seconds', JSON.stringify(elapsedSeconds));
+  }, [elapsedSeconds]);
+
+  const [currentRoom, setCurrentRoom] = useState(() => {
+    return localStorage.getItem('cryptique_room') || 'attic';
+  });
 
   useEffect(() => {
     localStorage.setItem('cryptique_room', currentRoom);
   }, [currentRoom]);
+
+  useEffect(() => {
+    if (solvedPuzzles.length === 6) return;
+    const interval = setInterval(() => {
+      setElapsedSeconds((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [solvedPuzzles.length]);
 
   const handleSelectPuzzle = (puzzle) => {
     const isUnlocked = 
@@ -100,7 +121,16 @@ export default function App() {
         isMuted={isMuted}
         onToggleMute={() => setIsMuted(!isMuted)}
         rank={getRank()}
-          onOpenCurios={() => setIsCurioOpen(true)}
+        onOpenCurios={() => setIsCurioOpen(true)}
+        onOpenNotes={() => setIsNotesOpen(true)}
+        onResetArchive={() => {
+          if (window.confirm("Reset all archive progress?")) {
+            setSolvedPuzzles([]);
+            setElapsedSeconds(0);
+            setCurrentRoom('attic');
+          }
+        }}
+        elapsedSeconds={elapsedSeconds}
       />
       <div className="w-full h-full relative">
         {currentRoom === 'attic' ? (
@@ -133,6 +163,8 @@ export default function App() {
         isOpen={isSanctumOpen}
         onClose={() => setIsSanctumOpen(false)}
         rank={getRank()}
+        elapsedSeconds={elapsedSeconds}
+        isMuted={isMuted}
         onEnterExpansion={() => {
           setIsSanctumOpen(false);
           setCurrentRoom('scrapbook');
@@ -143,6 +175,11 @@ export default function App() {
         onClose={() => setIsCurioOpen(false)}
         solvedPuzzles={solvedPuzzles}
         puzzles={PUZZLES}
+        isMuted={isMuted}
+      />
+      <ScratchpadDrawer
+        isOpen={isNotesOpen}
+        onClose={() => setIsNotesOpen(false)}
         isMuted={isMuted}
       />
     </div>
