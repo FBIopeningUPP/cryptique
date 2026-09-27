@@ -44,6 +44,7 @@ export default function UVPuzzle({isMuted=false}) {
         setIsUnlocked(true);
         playSuccessChime(isMuted);
       } else {
+        clearTimeout(resetTimeoutRef.current);
         setErrorShake(true);
         resetTimeoutRef.current = setTimeout(() => {
           setEnteredCode('');
@@ -54,6 +55,8 @@ export default function UVPuzzle({isMuted=false}) {
   };
 
   const handleClear = () => {
+    clearTimeout(resetTimeoutRef.current);
+    setErrorShake(false);
     playMechanicalClick(isMuted);
     setEnteredCode('');
   };

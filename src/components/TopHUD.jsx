@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Volume2, VolumeX, Maximize2, Minimize2, Sparkles, BookOpen, Clock, RotateCcw } from 'lucide-react';
 
 export default function TopHUD({
-  solvedCount, 
+  solvedCount,
+  totalCount = 6,
   isMuted,
   onToggleMute,
   rank = 'Apprentice Archivist',
@@ -40,14 +41,14 @@ export default function TopHUD({
   };
   
   return (                                                                                                                                                                                     
-        <div className="fixed top-0 left-0 right-0 h-12 bg-[#2D1F17]/95 backdrop-blur-sm border-b-2 border-[#543D2D] z-40 px-4 sm:px-6 flex items-center justify-between shadow-md select-none">   
+        <div className="fixed top-0 left-0 right-0 h-12 bg-[#2D1F17]/95 backdrop-blur-sm border-b-2 border-[#543D2D] z-40 px-2 sm:px-6 flex items-center justify-between shadow-md select-none">
           <div className="flex items-center gap-2.5">                                                                                                                                              
             <img                                                                                                                                                                                   
               src="/assets/portrait_barnaby_neutral.png"                                                                                                                                           
               alt="Archivist Barnaby"                                                                                                                                                              
               className="w-7 h-7 rounded-full border border-[#C59B4B]/80 object-cover shadow-sm flex-shrink-0"                                                                                     
             />                                                                                                                                                                                     
-            <span className="font-serif text-xs sm:text-sm text-[#F4EBD9] tracking-wider uppercase font-semibold flex items-center gap-1.5">                                                       
+            <span className="font-serif text-xs sm:text-sm text-[#F4EBD9] tracking-wider uppercase font-semibold hidden lg:flex items-center gap-1.5">
               <span>Rank:</span>                                                                                                                                                                   
               <span className="text-[#C59B4B] font-bold">{rank}</span>                                                                                                                             
             </span>  
@@ -57,18 +58,18 @@ export default function TopHUD({
             </div>                                                                                                                                                                              
           </div>                                                                                                                                                                                   
                                                                                                                                                                                                    
-          <div className="flex items-center gap-1.5 sm:gap-3">                                                                                                                                     
-            <span className="text-[11px] sm:text-xs font-serif text-[#C59B4B] uppercase tracking-widest font-semibold mr-0.5">                                                                     
+          <div className="flex items-center gap-0.5 sm:gap-2">
+            <span className="hidden md:inline text-[11px] sm:text-xs font-serif text-[#C59B4B] uppercase tracking-widest font-semibold mr-0.5">
               Seals:                                                                                                                                                                               
             </span>                                                                                                                                                                                
-            {[0, 1, 2, 3, 4, 5].map((index) => {                                                                                                                                                   
+            {Array.from({ length: totalCount }, (_, index) => index).map((index) => {
               const solved = solvedCount > index;                                                                                                                                                  
               return (                                                                                                                                                                             
                 <div key={index} className="relative group">                                                                                                                                       
                   <img                                                                                                                                                                             
                     src={solved ? '/assets/ui_seal_broken.png' : '/assets/ui_seal_unbroken.png'}                                                                                                   
                     alt={`Seal ${index + 1}`}                                                                                                                                                      
-                    className={`w-6 h-6 sm:w-7 sm:h-7 object-contain transition-transform duration-200 ${                                                                                          
+                    className={`w-5 h-5 sm:w-7 sm:h-7 object-contain transition-transform duration-200 ${
                       solved ? 'scale-110 drop-shadow-[0_0_8px_rgba(197,155,75,0.7)]' : 'opacity-85'                                                                                               
                     }`}                                                                                                                                                                            
                   />                                                                                                                                                                               
@@ -90,7 +91,7 @@ export default function TopHUD({
                 <Sparkles className="w-3.5 h-3.5 text-[#C59B4B]" />                                                                                                                                
                 <span className="hidden sm:inline">Curios</span>                                                                                                                                   
                 <span className="bg-[#C59B4B] text-[#2D1F17] font-bold text-[10px] px-1.5 py-0.2 rounded-full">                                                                                    
-                  {solvedCount}/6                                                                                                                                                                  
+                  {solvedCount}/{totalCount}
                 </span>                                                                                                                                                                            
               </button>                                                                                                                                                                            
             )} 

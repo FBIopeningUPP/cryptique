@@ -156,7 +156,7 @@ export default function InspectModal({
               )}
             </div>
 
-            {puzzle.id !== 'puzzle-5' && (
+            {!['safe', 'clock'].includes(puzzle.itemType) && (
               <div className="p-4 bg-[#EDE2CE] border-t-2 border-[#D5C29D]">
                 <AnswerInput
                   key={puzzle.id}

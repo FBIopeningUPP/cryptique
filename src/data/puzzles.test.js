@@ -14,6 +14,18 @@ describe('puzzle catalog', () => {
     });
   });
 
+  it('keeps seal positions contiguous and every puzzle placeable', () => {
+    expect(PUZZLES.map(({ sealIndex }) => sealIndex)).toEqual(
+      PUZZLES.map((_, index) => index),
+    );
+
+    PUZZLES.forEach((puzzle) => {
+      expect(puzzle.placement.label).toBeTruthy();
+      expect(puzzle.placement.sealedSrc).toMatch(/^\/assets\//);
+      expect(puzzle.placement.solvedSrc).toMatch(/^\/assets\//);
+    });
+  });
+
   it('only references existing prerequisite puzzles', () => {
     const ids = new Set(PUZZLES.map(({ id }) => id));
 

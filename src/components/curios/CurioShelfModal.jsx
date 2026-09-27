@@ -104,9 +104,12 @@ export default function CurioShelfModal({ isOpen, onClose, solvedPuzzles = [], p
                   if (!reward) return null;
 
                   return (
-                    <div
+                    <button
+                      type="button"
                       key={reward.id}
                       onClick={() => handleSelectCurio(reward, isUnlocked)}
+                      disabled={!isUnlocked}
+                      aria-label={isUnlocked ? `Inspect ${reward.name}` : `Locked curio slot ${index + 1}`}
                       className={`relative aspect-square rounded-xl p-4 flex flex-col items-center justify-between border-2 transition-all duration-200 ${
                         isUnlocked
                           ? 'bg-[#2E1F16] border-[#C59B4B]/80 hover:border-[#FFE57F] hover:scale-105 cursor-pointer shadow-[0_4px_16px_rgba(197,155,75,0.2)]'
@@ -147,7 +150,7 @@ export default function CurioShelfModal({ isOpen, onClose, solvedPuzzles = [], p
                           </span>
                         )}
                       </div>
-                    </div>
+                    </button>
                   );
                 })}
               </motion.div>

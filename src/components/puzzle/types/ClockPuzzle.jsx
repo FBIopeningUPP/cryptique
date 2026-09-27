@@ -1,10 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { Clock, RotateCcw, RotateCw } from 'lucide-react';
-import { playMechanicalClick, playSuccessChime } from '../../../logic/audioEngine.js';
+import { playMechanicalClick, playSealStamp, playSuccessChime } from '../../../logic/audioEngine.js';
 
 export default function ClockPuzzle({puzzle, isSolved, onSolve, isMuted}) {
     const [hours, setHours] = useState(12);
     const [minutes, setMinutes] = useState(0);
+    const [hasError, setHasError] = useState(false);
+    const errorTimeoutRef = useRef(null);
+
+    useEffect(() => () => clearTimeout(errorTimeoutRef.current), []);
 
     const handleRotate = (type, direction) => {
         if (isSolved) return;
@@ -31,15 +35,20 @@ export default function ClockPuzzle({puzzle, isSolved, onSolve, isMuted}) {
         if (isSolved) return;
         // Target is 11:45
         if (hours === 11 && minutes === 45) {
+            clearTimeout(errorTimeoutRef.current);
+            setHasError(false);
             playSuccessChime(isMuted);
             onSolve('1145');
         } else {
-            // Optional: play an error sound or shake, but let's keep it simple
+            playSealStamp(isMuted);
+            setHasError(true);
+            clearTimeout(errorTimeoutRef.current);
+            errorTimeoutRef.current = setTimeout(() => setHasError(false), 600);
         }
     };
 
     return (
-        <div className="flex flex-col items-center gap-4 w-full max-w-md bg-[#FAF3E3] border-2 border-[#543D2D] rounded-xl p-5 shadow-inner">
+        <div className={`flex flex-col items-center gap-4 w-full max-w-md bg-[#FAF3E3] border-2 border-[#543D2D] rounded-xl p-5 shadow-inner ${hasError ? 'animate-shake' : ''}`}>
             <div className="relative aspect-square w-64 rounded-xl overflow-hidden border border-[#D5C29D] shadow-md bg-[#231A13] flex items-center justify-center">
                 
                 {/* Clock Face Background */}
@@ -117,6 +126,11 @@ export default function ClockPuzzle({puzzle, isSolved, onSolve, isMuted}) {
                 <Clock className="w-4 h-4" />
                 <span>{isSolved ? 'Time Aligned ✓' : 'Test Alignment'}</span>
             </button>
+            {hasError && (
+                <p className="text-[#8B3A22] text-xs font-serif italic font-semibold" role="alert">
+                    The mechanism rejects that alignment. Check Arthur's frozen moment again.
+                </p>
+            )}
         </div>
     );
 }

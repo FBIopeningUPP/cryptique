@@ -15,7 +15,7 @@ const INITIAL_DIALOGUE = "Hoo! You must be Arthur's kin. The ledger is sealed ti
 
 function getWelcomeDialogue(solvedPuzzles) {
   if (solvedPuzzles.length >= PUZZLE_COUNT) {
-    return "Hoo! All six seals are shattered. Arthur's epilogue and every archived memory are yours to explore!";
+    return "Hoo! All the seals are shattered. Arthur's epilogue and every archived memory are yours to explore!";
   }
 
   if (solvedPuzzles.length > 0) {
@@ -138,7 +138,7 @@ export default function App() {
   const handleBarnabyClick = () => {
     const nextUnsolved = PUZZLES.find((p) => !solvedPuzzles.includes(p.id));
     if (!nextUnsolved) {
-      setActiveDialogue("Hoo! All six seals are shattered! Head straight to the Master Sanctum chest atop the shelf!");
+      setActiveDialogue("Hoo! All the seals are shattered! Head straight to the Master Sanctum chest atop the shelf!");
       setDialogueMood('happy');
     } else {
       const hint = nextUnsolved.hints?.[0] ?? nextUnsolved.clue.prompt;
@@ -170,6 +170,7 @@ export default function App() {
     <div className="fixed inset-0 w-full h-full overflow-hidden bg-[#1E1712] text-ink-900 select-none">
       <TopHUD
         solvedCount={solvedPuzzles.length}
+        totalCount={PUZZLE_COUNT}
         isMuted={isMuted}
         onToggleMute={() => setIsMuted(!isMuted)}
         rank={getRank()}
@@ -224,6 +225,7 @@ export default function App() {
         rank={getRank()}
         elapsedSeconds={elapsedSeconds}
         isMuted={isMuted}
+        totalSealCount={PUZZLE_COUNT}
         onEnterExpansion={() => {
           setIsSanctumOpen(false);
           setCurrentRoom('scrapbook');
