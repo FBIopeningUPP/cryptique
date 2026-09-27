@@ -149,6 +149,7 @@ export default function InspectModal({
             {puzzle.id !== 'puzzle-5' && (
               <div className="p-4 bg-[#EDE2CE] border-t-2 border-[#D5C29D]">
                 <AnswerInput
+                  key={puzzle.id}
                   acceptedAnswers={puzzle.acceptedAnswers}
                   onSolve={onSolve}
                   isSolved={isSolved}

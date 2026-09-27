@@ -13,6 +13,19 @@ import ScratchpadDrawer from './tools/ScratchpadDrawer.jsx';
 const PUZZLE_COUNT = PUZZLES.length;
 const INITIAL_DIALOGUE = "Hoo! You must be Arthur's kin. The ledger is sealed tight, but that envelope on the desk carries his very first clue. Click on it to begin!";
 
+function getWelcomeDialogue(solvedPuzzles) {
+  if (solvedPuzzles.length >= PUZZLE_COUNT) {
+    return "Hoo! All six seals are shattered. Arthur's epilogue and every archived memory are yours to explore!";
+  }
+
+  if (solvedPuzzles.length > 0) {
+    const nextPuzzle = PUZZLES.find(({ id }) => !solvedPuzzles.includes(id));
+    return `Welcome back, Archivist. Your next lead is ${nextPuzzle?.title ?? 'waiting in the attic'}.`;
+  }
+
+  return INITIAL_DIALOGUE;
+}
+
 function readStoredJson(key, fallback) {
   try {
     const storedValue = localStorage.getItem(key);
@@ -51,7 +64,7 @@ export default function App() {
   }, [solvedPuzzles]);
   const [isMuted, setIsMuted] = useState(false);
   const [dialogueMood, setDialogueMood] = useState('neutral');
-  const [activeDialogue, setActiveDialogue] = useState(INITIAL_DIALOGUE);
+  const [activeDialogue, setActiveDialogue] = useState(() => getWelcomeDialogue(solvedPuzzles));
   
   const [selectedPuzzle, setSelectedPuzzle] = useState(null);
   const [isSanctumOpen, setIsSanctumOpen] = useState(false);
@@ -167,6 +180,7 @@ export default function App() {
             setSolvedPuzzles([]);
             setElapsedSeconds(0);
             setCurrentRoom('attic');
+            writeStoredValue('cryptique_uv_unlocked', JSON.stringify(false));
             setSelectedPuzzle(null);
             setIsSanctumOpen(false);
             setIsCurioOpen(false);

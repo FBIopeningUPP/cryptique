@@ -1,10 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { playSuccessChime, playMechanicalClick } from '../logic/audioEngine.js';
+import { useLocalStorage } from '../hooks/useLocalStorage.js';
 
 export default function UVPuzzle({isMuted=false}) {
   const [mousePos, setMousePos] = useState({x: -1000, y: -1000});
   const [enteredCode, setEnteredCode] = useState('');
-  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useLocalStorage('cryptique_uv_unlocked', false);
   const [errorShake, setErrorShake] = useState(false);
   const containerRef = useRef(null);
   const resetTimeoutRef = useRef(null);

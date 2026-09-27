@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import UVPuzzle from './UVPuzzle.jsx';
 import { playMechanicalClick } from '../logic/audioEngine.js';
+import ScrapbookViewer from './reveal/ScrapbookViewer.jsx';
 
 const SOUVENIRS = {
   treehouse: {
@@ -25,6 +26,7 @@ const SOUVENIRS = {
 
 export default function ScrapbookRoom({onReturn, isMuted = false}) {
   const [activeSouvenir, setActiveSouvenir] = useState(null);
+  const [isAlbumOpen, setIsAlbumOpen] = useState(false);
 
   const handleOpenSouvenir = (key) => {
     playMechanicalClick(isMuted);
@@ -34,6 +36,11 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
   const handleCloseSouvenir = () => {
     playMechanicalClick(isMuted);
     setActiveSouvenir(null);
+  };
+
+  const handleAlbumToggle = (isOpen) => {
+    playMechanicalClick(isMuted);
+    setIsAlbumOpen(isOpen);
   };
 
   return (
@@ -50,10 +57,17 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
             <h1 className="font-serif text-base sm:text-lg text-[#F4EBD9] tracking-wider uppercase">                                                                                                                                                                       
               ✦ The Archivist's Epilogue: Scrapbook & Darkroom ✦                                                                                                                                                                                                           
             </h1>                                                                                                                                                                                                                                                          
-            <p className="text-[11px] font-serif text-[#C5A880] italic">                                                                                                                                                                                                   
-              Click the pinned keepsakes around the desk to view Arthur & Margaret's memories                                                                                                                                                                              
-            </p>                                                                                                                                                                                                                                                           
-          </div>                                                                                                                                                                                                                                                           
+            <p className="text-[11px] font-serif text-[#C5A880] italic">
+              Click the pinned keepsakes around the desk to view Arthur & Margaret's memories
+            </p>
+            <button
+              type="button"
+              onClick={() => handleAlbumToggle(true)}
+              className="mt-1 text-[10px] font-serif font-bold uppercase tracking-widest text-[#D4AF37] hover:text-[#FFE57F] underline"
+            >
+              Read Arthur's Story Album
+            </button>
+          </div>
                                                                                                                                                                                                                                                                            
           {/* Main Interactive Tabletop Stage */}                                                                                                                                                                                                                          
           <div className="relative w-full max-w-5xl flex-1 flex items-center justify-center">                                                                                                                                                                              
@@ -115,14 +129,33 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
           </div>                                                                                                                                                                                                                                                           
                                                                                                                                                                                                                                                                            
           {/* Return to Attic Button */}                                                                                                                                                                                                                                   
-          <button                                                                                                                                                                                                                                                          
+          <button
             onClick={onReturn}                                                                                                                                                                                                                                             
             className="relative z-30 mb-2 px-6 py-2.5 bg-[#4A3222] hover:bg-[#F4EBD9] text-[#F4EBD9] hover:text-[#231812] font-serif font-bold uppercase text-xs tracking-widest rounded-lg border-2 border-[#8C6F56] transition shadow-xl cursor-pointer active:scale-95" 
           >                                                                                                                                                                                                                                                                
-            ← Return to Study Attic                                                                                                                                                                                                                                        
-          </button>                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                           
-          {/* Souvenir Inspection Modal */}                                                                                                                                                                                                                                
+            ← Return to Study Attic
+          </button>
+
+          {isAlbumOpen && (
+            <div className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-4 sm:p-6 backdrop-blur-sm animate-fade-in">
+              <div className="relative w-full max-w-4xl">
+                <button
+                  type="button"
+                  onClick={() => handleAlbumToggle(false)}
+                  className="absolute -top-9 right-0 text-[#F4EBD9] hover:text-[#FFE57F] font-serif font-bold uppercase tracking-widest"
+                  aria-label="Close story album"
+                >
+                  ✕ Close
+                </button>
+                <ScrapbookViewer
+                  isMuted={isMuted}
+                  onShowCertificate={() => handleAlbumToggle(false)}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Souvenir Inspection Modal */}
           {activeSouvenir && (                                                                                                                                                                                                                                             
             <div                                                                                                                                                                                                                                                           
               className="fixed inset-0 z-50 bg-black/75 flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in"                                                                                                                                             
@@ -169,4 +202,3 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
         </div>
   );
 }
-

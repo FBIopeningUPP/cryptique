@@ -11,7 +11,7 @@ export default function SanctumModal({
   elapsedSeconds = 0,
   isMuted = false,
 }) {
-  const [viewMode, setViewMode] = useState('album'); // 'album' | 'certificate'
+  const [viewMode, setViewMode] = useState('album');
   const [playerName, setPlayerName] = useState('Archivist');
 
   useEffect(() => {
@@ -51,7 +51,6 @@ export default function SanctumModal({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Barnaby Celebrating Avatar */}
         <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#FAF3E3] border-2 border-[#C59B4B] flex items-center justify-center shadow-lg p-1">
           <img
             src="/assets/portrait_barnaby_happy.png"
@@ -60,7 +59,7 @@ export default function SanctumModal({
           />
         </div>
 
-        {/* Header Title */}
+        {/* Header*/}
         <div>
           <div className="flex items-center justify-center gap-1.5 text-xs font-serif uppercase tracking-widest text-[#8B3A22] font-bold">
             <Sparkles className="w-4 h-4 text-[#C59B4B]" />
@@ -71,7 +70,6 @@ export default function SanctumModal({
           </h1>
         </div>
 
-        {/* VIEW 1: INTERACTIVE SCRAPBOOK FLIPBOOK */}
         {viewMode === 'album' && (
           <div className="w-full flex flex-col items-center gap-3">
             <ScrapbookViewer
@@ -88,7 +86,6 @@ export default function SanctumModal({
           </div>
         )}
 
-        {/* VIEW 2: OFFICIAL ARCHIVIST CERTIFICATE */}
         {viewMode === 'certificate' && (
           <div className="w-full flex flex-col items-center gap-4">
             
@@ -128,7 +125,6 @@ export default function SanctumModal({
               </div>
             </div>
 
-            {/* Actions: Print & Expansion Room */}
             <div className="flex flex-wrap items-center justify-center gap-3 w-full">
               <button
                 onClick={() => setViewMode('album')}
