@@ -150,17 +150,17 @@ export default function App() {
   const handleSanctumClick = () => {                                                                                                                                                           
     if (solvedPuzzles.length >= PUZZLE_COUNT) {
      setIsSanctumOpen(true);                                                                                                                                                                  
-      setActiveDialogue("The six chains have fallen! Step into Arthur's Master Sanctum!");                                                                                                     
+      setActiveDialogue("The final lock has fallen! Step into Arthur's Master Sanctum!");                                                                                                     
       setDialogueMood('happy');                                                                                                                                                                
     } else {                                                                                                                                                                                   
       setActiveDialogue(                                                                                                                                                                       
-        `The Master Sanctum is bound by six heavy chains (${solvedPuzzles.length}/${PUZZLE_COUNT} broken). Solve all clues first!`
+        `The Master Sanctum is bound by heavy chains (${solvedPuzzles.length}/${PUZZLE_COUNT} broken). Solve all clues first!`
     );                                                                                                                                                                                       
       setDialogueMood('thinking');                                                                                                                                                             
     }                                                                                                                                                                                          
   };                                                                                                                                                                                           
                                                                                                                                                                                                
-    const getRank = () => {                                                                                                                                                                      
+  const getRank = () => {                                                                                                                                                                      
     if (solvedPuzzles.length >= PUZZLE_COUNT) return 'Master Archivist';
     if (solvedPuzzles.length >= 3) return 'Senior Archivist';                                                                                                                                  
     return 'Apprentice Archivist';                                                                                                                                                             

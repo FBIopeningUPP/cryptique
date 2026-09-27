@@ -93,8 +93,11 @@ export default function TelegraphPuzzle({puzzle, isMuted}) {
             <div className="w-full bg-[#EDE2CE] border border-[#D5C29D] p-3 rounded-lg text-[11px] font-mono grid grid-cols-4 gap-1 text-[#2D1F17] shadow-inner">
               <span>A: .-</span><span>B: -...</span><span>C: -.-.</span><span>D: -..</span>
               <span>E: .</span><span>F: ..-.</span><span>G: --.</span><span>H: ....</span>
-              <span>I: ..</span><span>L: .-..</span><span>M: --</span><span>N: -.</span>
-              <span>O: ---</span><span>R: .-.</span><span>S: ...</span><span>T: -</span>
+              <span>I: ..</span><span>J: .---</span><span>K: -.-</span><span>L: .-..</span>
+              <span>M: --</span><span>N: -.</span><span>O: ---</span><span>P: .--.</span>
+              <span>Q: --.-</span><span>R: .-.</span><span>S: ...</span><span>T: -</span>
+              <span>U: ..-</span><span>V: ...-</span><span>W: .--</span><span>X: -..-</span>
+              <span>Y: -.--</span><span>Z: --..</span>
             </div>
           )}
         </div>

@@ -39,7 +39,7 @@ export default function RoomStage({
         title="Master Sanctum"
       >
         <img
-          src={solvedPuzzles.length === 6 ? '/assets/prop_sanctum_open.png' : '/assets/prop_sanctum_locked.png'}
+          src={solvedPuzzles.length >= puzzles.length ? '/assets/prop_sanctum_open.png' : '/assets/prop_sanctum_locked.png'}
           alt="Sanctum Chest"
           className="w-full h-auto drop-shadow-md group-hover:scale-105 transition-transform duration-200"
         />
@@ -71,13 +71,6 @@ export default function RoomStage({
         alt="Desk"
         className="absolute pointer-events-none"
         style={{ left: '31.25%', top: '41.20%', width: '37.50%', zIndex: 8 }}
-      />
-
-      <img
-        src="/assets/furniture_clock.png"
-        alt="Clock"
-        className="absolute pointer-events-none"
-        style={{ left: '79.69%', top: '23.15%', width: '13.54%', zIndex: 5 }}
       />
 
       <div

@@ -29,7 +29,7 @@ export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
     };
     return (                                                                                                                                                                                     
         <div className="flex flex-col items-center gap-4 w-full max-w-md bg-[#FAF3E3] border-2 border-[#543D2D] rounded-xl p-5 shadow-inner">                                                      
-          <div className={`relative aspect-square w-64 sm:w-72 rounded-xl overflow-hidden border border-[#D5C29D] shadow-md ${errorShake ? 'animate-bounce' : ''}`}>                               
+          <div className={`relative aspect-square w-64 sm:w-72 rounded-xl overflow-hidden border border-[#D5C29D] shadow-md ${errorShake ? 'animate-[shake_0.4s_ease-in-out]' : ''}`}>                               
             <img                                                                                                                                                                                   
               src="/assets/inspect_safe_faceplate.png"                                                                                                                                             
               alt="Clockwork Safe Faceplate"                                                                                                                                                       

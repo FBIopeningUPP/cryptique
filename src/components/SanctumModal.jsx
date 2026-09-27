@@ -22,6 +22,7 @@ export default function SanctumModal({
         spread: 85,
         origin: { y: 0.55 },
         colors: ['#C59B4B', '#8B3A22', '#F4EBD9', '#2E3B2E'],
+        disableForReducedMotion: true,
       });
     }
   }, [isOpen]);

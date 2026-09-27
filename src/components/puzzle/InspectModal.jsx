@@ -8,6 +8,7 @@ import TelegraphPuzzle from './types/TelegraphPuzzle.jsx';
 import JournalPuzzle from './types/JournalPuzzle.jsx';
 import SafePuzzle from './types/SafePuzzle.jsx';
 import PostcardPuzzle from './types/PostcardPuzzle.jsx';
+import ClockPuzzle from './types/ClockPuzzle.jsx';
 
 export default function InspectModal({
   puzzle,
@@ -44,6 +45,15 @@ export default function InspectModal({
         );
       case 'puzzle-6':
         return <PostcardPuzzle puzzle={puzzle} isMuted={isMuted} />;
+      case 'puzzle-7':
+        return (
+          <ClockPuzzle
+            puzzle={puzzle}
+            isSolved={isSolved}
+            onSolve={onSolve}
+            isMuted={isMuted}
+          />
+        );
       default:
         return null;
     }

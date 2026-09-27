@@ -40,6 +40,12 @@ const CURIO_LORE = {
     entry:
       "Sent from the coast on Margaret's twentieth birthday. The pinpricks through the ink correspond directly to the summer constellations overhead. If you line Cygnus with the old chimney at twilight, you will find our secret haven.",
   },
+  curio_pocket_watch: {
+    year: '1947',
+    heading: "The Frozen Escapement",
+    entry:
+      "The mainspring snapped on a cold October night exactly at 11:45. Instead of replacing it, I kept it as a reminder that some moments are worth pausing indefinitely.",
+  },
 };
 
 export default function CurioShelfModal({ isOpen, onClose, solvedPuzzles = [], puzzles = [], isMuted = false }) {

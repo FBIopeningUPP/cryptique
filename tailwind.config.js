@@ -52,9 +52,15 @@
               from: { opacity: '0' },
               to: { opacity: '1' },
             },
+            'shake': {
+              '0%, 100%': { transform: 'translateX(0)' },
+              '10%, 50%, 90%': { transform: 'translateX(-4px)' },
+              '30%, 70%': { transform: 'translateX(4px)' },
+            },
           },
           animation: {
             'fade-in': 'fade-in 200ms ease-out',
+            'shake': 'shake 0.4s ease-in-out',
           },
         },
       },

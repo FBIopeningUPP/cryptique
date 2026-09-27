@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-export default function PhotoPuzzle() {
+export default function PhotoPuzzle({puzzle, isMuted}) {
   const [loupePos, setLoupePos] = useState({ x: 50, y: 50 });
   const containerRef = useRef(null);
 
