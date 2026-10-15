@@ -247,11 +247,13 @@ export default function App() {
         ) : (
           <ScrapbookRoom onReturn={() => setCurrentRoom('attic')} isMuted={isMuted} />
         )}
-        <DialogueDeck
-          dialogue={activeDialogue}
-          mood={dialogueMood}
-          onBarnabyClick={handleBarnabyClick}
-        />
+        {currentRoom === 'attic' && (
+          <DialogueDeck
+            dialogue={activeDialogue}
+            mood={dialogueMood}
+            onBarnabyClick={handleBarnabyClick}
+          />
+        )}
       </div>
 
       <InspectModal

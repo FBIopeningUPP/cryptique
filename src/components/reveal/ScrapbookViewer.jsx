@@ -31,7 +31,7 @@ const SCRAPBOOK_PAGES = [
   },
 ];
 
-export default function ScrapbookViewer({ isMuted = false, onShowCertificate }) {
+export default function ScrapbookViewer({ isMuted = false, onShowCertificate, finishLabel = 'Claim Certificate' }) {
   const [currentPage, setCurrentPage] = useState(0);
 
   const handleNext = () => {
@@ -110,7 +110,7 @@ export default function ScrapbookViewer({ isMuted = false, onShowCertificate }) 
               className="flex items-center gap-1.5 px-4 py-1.5 bg-[#8B3A22] hover:bg-[#A34327] text-white rounded-lg font-serif text-xs uppercase tracking-wider font-bold shadow transition active:scale-95 animate-pulse"
             >
               <Award className="w-4 h-4 text-[#FFE57F]" />
-              <span>Claim Certificate</span>
+              <span>{finishLabel}</span>
             </button>
           ) : (
             <button
