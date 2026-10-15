@@ -1,10 +1,11 @@
 import React from 'react';
+import { asset } from '../assets.js';
 
 export default function DialogueDeck({ dialogue, mood = 'neutral', onBarnabyClick }) {
   const getPortraitSrc = () => {
-    if (mood === 'happy') return '/assets/portrait_barnaby_happy.png';
-    if (mood === 'thinking') return '/assets/portrait_barnaby_thinking.png';
-    return '/assets/portrait_barnaby_neutral.png';
+    if (mood === 'happy') return asset('portrait_barnaby_happy');
+    if (mood === 'thinking') return asset('portrait_barnaby_thinking');
+    return asset('portrait_barnaby_neutral');
   };
 
   const cleanText = dialogue

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { applyCaesarShift } from '../../../logic/cipherEngine.js';
 import { playMechanicalClick } from '../../../logic/audioEngine.js';
+import { asset } from '../../../assets.js';
 
 export default function LetterPuzzle({puzzle, isMuted}) {
     const [shift, setShift] = useState(0);
@@ -16,7 +17,7 @@ export default function LetterPuzzle({puzzle, isMuted}) {
         <div className="relative w-full max-w-lg bg-[#FAF3E3] border-2 border-[#543D2D] rounded-xl p-5 shadow-inner flex flex-col gap-4">
           <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden border border-[#D5C29D] shadow-sm">
             <img
-              src="/assets/inspect_letter_bg.png"
+              src={asset('inspect_letter_bg')}
               alt="Arthur's Letter"
               className="w-full h-full object-cover"
             />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Volume2, VolumeX, Maximize2, Minimize2, Sparkles, BookOpen, Clock, RotateCcw, Disc3 } from 'lucide-react';
+import { asset } from '../assets.js';
 
 export default function TopHUD({
   solvedCount,
@@ -46,7 +47,7 @@ export default function TopHUD({
         <div className="fixed top-0 left-0 right-0 h-12 bg-[#2D1F17]/95 backdrop-blur-sm border-b-2 border-[#543D2D] z-40 px-2 sm:px-6 flex items-center justify-between shadow-md select-none">
           <div className="flex items-center gap-2.5">
             <img
-              src="/assets/portrait_barnaby_neutral.png"
+              src={asset('portrait_barnaby_neutral')}
               alt="Archivist Barnaby"
               className="w-7 h-7 rounded-full border border-[#C59B4B]/80 object-cover shadow-sm flex-shrink-0"
             />
@@ -69,7 +70,7 @@ export default function TopHUD({
               return (
                 <div key={index} className="relative group">
                   <img
-                    src={solved ? '/assets/ui_seal_broken.png' : '/assets/ui_seal_unbroken.png'}
+                    src={solved ? asset('ui_seal_broken') : asset('ui_seal_unbroken')}
                     alt={`Seal ${index + 1}`}
                     className={`w-5 h-5 sm:w-7 sm:h-7 object-contain transition-transform duration-200 ${
                       solved ? 'scale-110 drop-shadow-[0_0_8px_rgba(197,155,75,0.7)]' : 'opacity-85'

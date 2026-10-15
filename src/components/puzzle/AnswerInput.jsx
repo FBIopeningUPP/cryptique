@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { KeyRound, Check } from 'lucide-react';
 import { verifyAnswer } from '../../logic/cipherEngine.js';
 import { playSealStamp, playSuccessChime } from '../../logic/audioEngine.js';
+import { asset } from '../../assets.js';
 
 export default function AnswerInput({
     acceptedAnswers,
@@ -66,7 +67,7 @@ export default function AnswerInput({
               className="flex items-center gap-1.5 bg-[#8B3A22] hover:bg-[#A34327] active:scale-95 text-[#FAF3E3] font-serif text-xs uppercase tracking-wider px-3.5 py-2 rounded-lg transition-transform shadow"
             >
               <img
-                src="/assets/ui_seal_unbroken.png"
+                src={asset('ui_seal_unbroken')}
                 alt="Break Seal"
                 className="w-4 h-4 object-contain"
               />

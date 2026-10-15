@@ -2,23 +2,24 @@ import React, {useState} from 'react';
 import UVPuzzle from './UVPuzzle.jsx';
 import { playMechanicalClick } from '../logic/audioEngine.js';
 import ScrapbookViewer from './reveal/ScrapbookViewer.jsx';
+import { asset } from '../assets.js';
 
 const SOUVENIRS = {
   treehouse: {
     title: 'The Mountain Observatory (1954)',
-    img: '/assets/treehouse.png',
+    img: asset('treehouse'),
     date: 'Autumn, 1954',
     note: 'Where Margaret and I spent seven crisp nights cataloging the Perseids meteor shower. The brass telescope we carried up that mountain still points steadily toward Cassiopeia.',
   },
   train: {
     title: 'Continental Sleeper Ticket (1948)',
-    img: '/assets/traint.png',
+    img: asset('traint'),
     date: 'October 12, 1948',
     note: 'St. Moritz to Vienna. We spent the thirty-hour journey decoding encrypted telegraph dispatches in the dining car over cups of bitter espresso.',
   },
   astromap: {
     title: 'Hand-Penned Celestial Chart',
-    img: '/assets/astromap.png',
+    img: asset('astromap'),
     date: 'Undated Draft',
     note: 'Drawn in sepia ink. Arthur left a tiny penciled annotation near the southern horizon: "The true combination was written in fluorescent salt under the blacklight lamp."',
   },
@@ -47,7 +48,7 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
     <div className="relative w-full h-full overflow-hidden select-none bg-[#140E0A] flex flex-col items-center justify-between p-6">
           {/* Background Vintage Texture */}
           <img
-            src="/assets/ending_scrapbook_bg.png"
+            src={asset('ending_scrapbook_bg')}
             alt="Arthur's Scrapbook"
             className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-40 mix-blend-luminosity"
           />
@@ -79,7 +80,7 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
             >
               <div className="bg-[#FAF6EE] p-2 pb-4 rounded shadow-2xl border border-[#D5C2A5] transform -rotate-6 group-hover:rotate-0 transition-transform">
                 <img
-                  src="/assets/treehouse.png"
+                  src={asset('treehouse')}
                   alt="Forest Observatory"
                   className="w-32 sm:w-44 h-auto rounded-sm object-cover"
                 />
@@ -97,7 +98,7 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
             >
               <div className="transform rotate-3 group-hover:rotate-0 transition-transform">
                 <img
-                  src="/assets/traint.png"
+                  src={asset('traint')}
                   alt="Train Ticket"
                   className="w-28 sm:w-40 h-auto drop-shadow-xl"
                 />
@@ -112,7 +113,7 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
             >
               <div className="transform rotate-2 group-hover:rotate-0 transition-transform bg-[#1C161E]/80 p-2 rounded-lg border border-[#6E5773] shadow-2xl">
                 <img
-                  src="/assets/astromap.png"
+                  src={asset('astromap')}
                   alt="Star Map"
                   className="w-36 sm:w-52 h-auto rounded opacity-90 group-hover:opacity-100"
                 />

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { asset } from '../../../assets.js';
 
 export default function PhotoPuzzle({puzzle, isMuted}) {
   const [loupePos, setLoupePos] = useState({ x: 50, y: 50 });
@@ -31,7 +32,7 @@ export default function PhotoPuzzle({puzzle, isMuted}) {
         className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border-2 border-[#543D2D] shadow-md cursor-crosshair touch-none"
       >
         <img
-          src="/assets/inspect_photo_hires.png"
+          src={asset('inspect_photo_hires')}
           alt="Arthur's Study Desk"
           className="w-full h-full object-cover"
         />
@@ -42,7 +43,7 @@ export default function PhotoPuzzle({puzzle, isMuted}) {
         >
           <div
             style={{
-              backgroundImage: 'url(/assets/inspect_photo_hires.png)',
+              backgroundImage: `url(${asset('inspect_photo_hires')})`,
               backgroundSize: '350%',
               backgroundPosition: `${loupePos.x}% ${loupePos.y}%`,
             }}

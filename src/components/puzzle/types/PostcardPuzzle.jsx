@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ZoomIn } from 'lucide-react';
+import { asset } from '../../../assets.js';
 
 export default function PostcardPuzzle({puzzle, isMuted}) {
     const [isAssembled, setIsAssembled] = useState(false);
@@ -12,7 +13,7 @@ export default function PostcardPuzzle({puzzle, isMuted}) {
             {isAssembled ? (
               <div className="relative w-full h-full flex items-center justify-center">
                 <img
-                  src="/assets/inspect_postcard_assembled.png"
+                  src={asset('inspect_postcard_assembled')}
                   alt="Restored Constellation Postcard"
                   className="max-h-full max-w-full object-contain filter drop-shadow-lg"
                 />
@@ -30,21 +31,21 @@ export default function PostcardPuzzle({puzzle, isMuted}) {
                 <motion.img
                   drag
                   dragConstraints={{ left: -50, right: 50, top: -30, bottom: 30 }}
-                  src="/assets/inspect_scrap_1.png"
+                  src={asset('inspect_scrap_1')}
                   alt="Left Postcard Fragment"
                   className="w-24 sm:w-28 h-auto cursor-grab active:cursor-grabbing filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
                 />
                 <motion.img
                   drag
                   dragConstraints={{ left: -50, right: 50, top: -30, bottom: 30 }}
-                  src="/assets/inspect_scrap_2.png"
+                  src={asset('inspect_scrap_2')}
                   alt="Center Postcard Fragment"
                   className="w-28 sm:w-32 h-auto cursor-grab active:cursor-grabbing filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
                 />
                 <motion.img
                   drag
                   dragConstraints={{ left: -50, right: 50, top: -30, bottom: 30 }}
-                  src="/assets/inspect_scrap_3.png"
+                  src={asset('inspect_scrap_3')}
                   alt="Right Postcard Fragment"
                   className="w-24 sm:w-28 h-auto cursor-grab active:cursor-grabbing filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
                 />

@@ -2,30 +2,31 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Compass, Award } from 'lucide-react';
 import { playMechanicalClick } from '../../logic/audioEngine.js';
+import { asset } from '../../assets.js';
 
 const SCRAPBOOK_PAGES = [
   {
     title: "Chapter I: The Attic & The Pine Ridge",
     date: "Summer, 1942",
-    image: "/assets/inspect_photo_hires.png",
+    image: asset('inspect_photo_hires'),
     text: "Before the ciphers and the locks, there was only a boy, a sister, and a small wooden platform bolted into the tallest hemlock tree on the northern ridge. We called it 'The High Celestial Observatory'. We built it with salvage timber from grandfather's barn, swearing never to speak of it to the town.",
   },
   {
     title: "Chapter II: The Great Winter Blackout",
     date: "December, 1944",
-    image: "/assets/inspect_letter_bg.png",
+    image: asset('inspect_letter_bg'),
     text: "When the county grid collapsed under four feet of wet blizzard ice, the attic became our fortress. With three beeswax candles burning low, Margaret taught me that codes aren't meant to keep people out—they are meant to keep precious memories safe from the erosion of time.",
   },
   {
     title: "Chapter III: Thirty Yards of Copper",
     date: "October, 1951",
-    image: "/assets/inspect_telegraph.png",
+    image: asset('inspect_telegraph'),
     text: "Even as we grew older, the telegraph key never fell silent. Through high school exams, college letters, and foreign travels, a three-dot burst ('S') through the wire meant 'Look up at the stars tonight'. I have kept that spring oiled every month since.",
   },
   {
     title: "Chapter IV: The Time Capsule Coordinates",
     date: "Autumn, 1968",
-    image: "/assets/inspect_postcard_assembled.png",
+    image: asset('inspect_postcard_assembled'),
     text: "If you are reading this ledger, our memories did not fade into dust. Beneath the twin roots of the old pine at coordinates 44°18'22\" N, 71°16'48\" W, a waterproof brass casket still rests beneath two feet of loam. The key around my neck is yours now.",
   },
 ];

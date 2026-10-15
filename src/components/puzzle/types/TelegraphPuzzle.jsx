@@ -2,6 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import {Volume2, FileText} from 'lucide-react';
 import { playMorseTone } from '../../../logic/audioEngine.js';
 import { compileMorseSchedule } from '../../../logic/morseEngine.js';
+import { asset } from '../../../assets.js';
 
 export default function TelegraphPuzzle({puzzle, isMuted}) {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -57,7 +58,7 @@ export default function TelegraphPuzzle({puzzle, isMuted}) {
         <div className="flex flex-col items-center gap-4 w-full max-w-md bg-[#FAF3E3] border-2 border-[#543D2D] rounded-xl p-4 shadow-inner">
           <div className="relative aspect-square w-64 rounded-lg overflow-hidden border border-[#D5C29D] bg-[#2A1D15]">
             <img
-              src="/assets/inspect_telegraph.png"
+              src={asset('inspect_telegraph')}
               alt="Brass Telegraph Key"
               className="w-full h-full object-cover"
             />

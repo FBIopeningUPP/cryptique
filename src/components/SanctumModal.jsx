@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import { X, Award, Sparkles, CheckCircle2, Printer, ArrowRight, BookOpen } from 'lucide-react';
 import ScrapbookViewer from './reveal/ScrapbookViewer.jsx';
 import { useDialogAccessibility } from '../hooks/useDialogAccessibility.js';
+import { asset } from '../assets.js';
 
 export default function SanctumModal({
   isOpen,
@@ -65,7 +66,7 @@ export default function SanctumModal({
 
         <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#FAF3E3] border-2 border-[#C59B4B] flex items-center justify-center shadow-lg p-1">
           <img
-            src="/assets/portrait_barnaby_happy.png"
+            src={asset('portrait_barnaby_happy')}
             alt="Barnaby Celebrating"
             className="w-full h-full object-cover rounded-full"
           />

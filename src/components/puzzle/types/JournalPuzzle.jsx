@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Code, Eye} from 'lucide-react';
+import { asset } from '../../../assets.js';
 
 export default function JournalPuzzle({puzzle}) {
     const [isPeeled, setIsPeeled] = useState(false);
@@ -8,7 +9,7 @@ export default function JournalPuzzle({puzzle}) {
         <div className="flex flex-col items-center gap-3 w-full max-w-lg">
           <div className="relative aspect-[3/2] w-full rounded-xl overflow-hidden border-2 border-[#543D2D] shadow-md bg-[#FAF3E3]">
             <img
-              src="/assets/inspect_journal_spread.png"
+              src={asset('inspect_journal_spread')}
               alt="Leather Journal Spread"
               className="w-full h-full object-cover"
             />
