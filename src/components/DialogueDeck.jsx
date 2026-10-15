@@ -8,7 +8,10 @@ export default function DialogueDeck({ dialogue, mood = 'neutral', onBarnabyClic
   };
 
   const cleanText = dialogue
-    ? dialogue.replace(/^Barnaby:\s*["']?/, '').replace(/["']$/, '').trim()
+    ? dialogue
+        .replace(/^Barnaby:\s*/i, '')
+        .trim()
+        .replace(/^(["'])([\s\S]*)\1$/, '$2')
     : '';
 
   return (
