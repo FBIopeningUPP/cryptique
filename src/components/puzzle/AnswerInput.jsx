@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';                                                                                                                                                        
-import { KeyRound, Check } from 'lucide-react';                                                                                                                                                
-import { verifyAnswer } from '../../logic/cipherEngine.js';                                                                                                                                    
+import { motion } from 'framer-motion';
+import { KeyRound, Check } from 'lucide-react';
+import { verifyAnswer } from '../../logic/cipherEngine.js';
 import { playSealStamp, playSuccessChime } from '../../logic/audioEngine.js';
+import { asset } from '../../assets.js';
 
 export default function AnswerInput({
     acceptedAnswers,
@@ -42,7 +43,7 @@ export default function AnswerInput({
     }
 
     return (
-        <form onSubmit={handleSubmit} className="w-full">                                                                                                                                          
+        <form onSubmit={handleSubmit} className="w-full">
           <motion.div
             animate={hasError ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
             transition={{ duration: 0.4 }}
@@ -60,13 +61,13 @@ export default function AnswerInput({
               placeholder={placeholder}
               maxLength={20}
               className="flex-1 bg-transparent px-2 py-1.5 font-serif text-sm tracking-wider text-[#2D1F17] placeholder-[#A0856C] outline-none uppercase font-bold"
-            />                                                                                                                                                                                     
-            <button                                                                                                                                                                                
+            />
+            <button
               type="submit"
-              className="flex items-center gap-1.5 bg-[#8B3A22] hover:bg-[#A34327] active:scale-95 text-[#FAF3E3] font-serif text-xs uppercase tracking-wider px-3.5 py-2 rounded-lg transition-transform shadow"                                                                                                                                                                                
-            >                                                                                                                                                                                      
-              <img                                                                                                                                                                                 
-                src="/assets/ui_seal_unbroken.png"                                                                                                                                                 
+              className="flex items-center gap-1.5 bg-[#8B3A22] hover:bg-[#A34327] active:scale-95 text-[#FAF3E3] font-serif text-xs uppercase tracking-wider px-3.5 py-2 rounded-lg transition-transform shadow"
+            >
+              <img
+                src={asset('ui_seal_unbroken')}
                 alt="Break Seal"
                 className="w-4 h-4 object-contain"
               />

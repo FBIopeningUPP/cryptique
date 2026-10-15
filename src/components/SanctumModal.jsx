@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import { X, Award, Sparkles, CheckCircle2, Printer, ArrowRight, BookOpen } from 'lucide-react';
 import ScrapbookViewer from './reveal/ScrapbookViewer.jsx';
 import { useDialogAccessibility } from '../hooks/useDialogAccessibility.js';
+import { asset } from '../assets.js';
 
 export default function SanctumModal({
   isOpen,
@@ -52,8 +53,7 @@ export default function SanctumModal({
         tabIndex={-1}
         className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-[#F7EFE1] border-4 border-[#C59B4B] rounded-2xl shadow-[0_16px_50px_rgba(0,0,0,0.9)] p-5 sm:p-7 flex flex-col items-center gap-4 text-center"
       >
-        
-        {/* Close Button */}
+
         <button
           onClick={onClose}
           aria-label="Close sanctum"
@@ -65,13 +65,12 @@ export default function SanctumModal({
 
         <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#FAF3E3] border-2 border-[#C59B4B] flex items-center justify-center shadow-lg p-1">
           <img
-            src="/assets/portrait_barnaby_happy.png"
+            src={asset('portrait_barnaby_happy')}
             alt="Barnaby Celebrating"
             className="w-full h-full object-cover rounded-full"
           />
         </div>
 
-        {/* Header*/}
         <div>
           <div className="flex items-center justify-center gap-1.5 text-xs font-serif uppercase tracking-widest text-[#8B3A22] font-bold">
             <Sparkles className="w-4 h-4 text-[#C59B4B]" />
@@ -100,8 +99,7 @@ export default function SanctumModal({
 
         {viewMode === 'certificate' && (
           <div className="w-full flex flex-col items-center gap-4">
-            
-            {/* The Certificate Plaque */}
+
             <div className="w-full bg-[#FAF3E3] border-4 border-[#543D2D] rounded-2xl p-5 sm:p-6 shadow-md flex flex-col items-center gap-3 text-center">
               <Award className="w-12 h-12 text-[#C59B4B]" />
 

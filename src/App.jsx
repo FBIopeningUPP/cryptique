@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';                                                                                                                                                       
-import { PUZZLES } from './data/puzzles.js';                                                                                                                                                   
-import TopHUD from './components/TopHUD.jsx';                                                                                                                                                  
-import RoomStage from './components/RoomStage.jsx';                                                                                                                                            
-import DialogueDeck from './components/DialogueDeck.jsx';                                                                                                                                      
-import InspectModal from './components/puzzle/InspectModal.jsx';                                                                                                                               
-import SanctumModal from './components/SanctumModal.jsx';                                                                                                                                      
+import React, { useState, useEffect, useRef } from 'react';
+import { PUZZLES } from './data/puzzles.js';
+import TopHUD from './components/TopHUD.jsx';
+import RoomStage from './components/RoomStage.jsx';
+import DialogueDeck from './components/DialogueDeck.jsx';
+import InspectModal from './components/puzzle/InspectModal.jsx';
+import SanctumModal from './components/SanctumModal.jsx';
 import CurioShelfModal from './components/curios/CurioShelfModal.jsx';
 import confetti from 'canvas-confetti';
 import ScrapbookRoom from './components/ScrapbookRoom.jsx';
@@ -49,7 +49,6 @@ function writeStoredValue(key, value) {
   try {
     localStorage.setItem(key, value);
   } catch {
-    // Progress remains available for the current session if storage is unavailable.
   }
 }
 
@@ -67,7 +66,7 @@ export default function App() {
   const [isMuted, setIsMuted] = useState(false);
   const [dialogueMood, setDialogueMood] = useState('neutral');
   const [activeDialogue, setActiveDialogue] = useState(() => getWelcomeDialogue(solvedPuzzles));
-  
+
   const [selectedPuzzle, setSelectedPuzzle] = useState(null);
   const [isSanctumOpen, setIsSanctumOpen] = useState(false);
   const [isCurioOpen, setIsCurioOpen] = useState(false);
@@ -138,7 +137,7 @@ export default function App() {
   }, [solvedPuzzles.length]);
 
   const handleSelectPuzzle = (puzzle) => {
-    const isUnlocked = 
+    const isUnlocked =
       puzzle.prerequisites.length === 0 ||
       puzzle.prerequisites.every((id) => solvedPuzzles.includes(id));
     const isSolved = solvedPuzzles.includes(puzzle.id);
@@ -159,11 +158,11 @@ export default function App() {
     setSelectedPuzzle(puzzle);
   };
 
-  const handleSolvePuzzle = () => {                                                                                                                                                            
-    if (!selectedPuzzle || solvedPuzzles.includes(selectedPuzzle.id)) return;                                                                                                                  
+  const handleSolvePuzzle = () => {
+    if (!selectedPuzzle || solvedPuzzles.includes(selectedPuzzle.id)) return;
 
     setSolvedPuzzles((prev) => [...prev, selectedPuzzle.id]);
-    setActiveDialogue(`Splendid work! The seal on ${selectedPuzzle.title} has shattered!`);                                                                                                    
+    setActiveDialogue(`Splendid work! The seal on ${selectedPuzzle.title} has shattered!`);
     setDialogueMood('happy');
 
     confetti({
@@ -187,25 +186,25 @@ export default function App() {
     }
   };
 
-  const handleSanctumClick = () => {                                                                                                                                                           
+  const handleSanctumClick = () => {
     if (solvedPuzzles.length >= PUZZLE_COUNT) {
-     setIsSanctumOpen(true);                                                                                                                                                                  
-      setActiveDialogue("The final lock has fallen! Step into Arthur's Master Sanctum!");                                                                                                     
-      setDialogueMood('happy');                                                                                                                                                                
-    } else {                                                                                                                                                                                   
-      setActiveDialogue(                                                                                                                                                                       
+     setIsSanctumOpen(true);
+      setActiveDialogue("The final lock has fallen! Step into Arthur's Master Sanctum!");
+      setDialogueMood('happy');
+    } else {
+      setActiveDialogue(
         `The Master Sanctum is bound by heavy chains (${solvedPuzzles.length}/${PUZZLE_COUNT} broken). Solve all clues first!`
-    );                                                                                                                                                                                       
-      setDialogueMood('thinking');                                                                                                                                                             
-    }                                                                                                                                                                                          
-  };                                                                                                                                                                                           
-                                                                                                                                                                                               
-  const getRank = () => {                                                                                                                                                                      
+    );
+      setDialogueMood('thinking');
+    }
+  };
+
+  const getRank = () => {
     if (solvedPuzzles.length >= PUZZLE_COUNT) return 'Master Archivist';
-    if (solvedPuzzles.length >= 3) return 'Senior Archivist';                                                                                                                                  
-    return 'Apprentice Archivist';                                                                                                                                                             
-  };  
-  
+    if (solvedPuzzles.length >= 3) return 'Senior Archivist';
+    return 'Apprentice Archivist';
+  };
+
   return (
     <div className="fixed inset-0 w-full h-full overflow-hidden bg-[#1E1712] text-ink-900 select-none">
       <TopHUD
@@ -248,11 +247,13 @@ export default function App() {
         ) : (
           <ScrapbookRoom onReturn={() => setCurrentRoom('attic')} isMuted={isMuted} />
         )}
-        <DialogueDeck
-          dialogue={activeDialogue}
-          mood={dialogueMood}
-          onBarnabyClick={handleBarnabyClick}
-        />
+        {currentRoom === 'attic' && (
+          <DialogueDeck
+            dialogue={activeDialogue}
+            mood={dialogueMood}
+            onBarnabyClick={handleBarnabyClick}
+          />
+        )}
       </div>
 
       <InspectModal

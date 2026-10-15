@@ -46,7 +46,7 @@ export default function InspectModal({
           />
         );
       case 'puzzle-6':
-        return <PostcardPuzzle puzzle={puzzle} isMuted={isMuted} />;
+        return <PostcardPuzzle puzzle={puzzle} isSolved={isSolved} isMuted={isMuted} />;
       case 'puzzle-7':
         return (
           <ClockPuzzle

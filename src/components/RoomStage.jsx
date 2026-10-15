@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { asset } from '../assets.js';
 
 export default function RoomStage({
   puzzles,
@@ -17,15 +17,18 @@ export default function RoomStage({
 
   return (
     <div className="relative w-full h-full overflow-hidden select-none bg-[#1E1712] flex items-center justify-center">
+      <p className="hidden portrait:max-sm:block absolute top-20 inset-x-4 text-center font-serif text-xs text-[#D5C29D] bg-[#2D1F17]/90 border border-[#543D2D] rounded-lg px-3 py-2 pointer-events-none">
+        Turn your phone sideways for a bigger attic.
+      </p>
       <div className="relative w-[min(100%,177.777vh)] aspect-video max-h-full">
       <img
-        src="/assets/room_attic_empty.png"
+        src={asset('room_attic_empty')}
         alt="Attic Study"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
 
       <img
-        src="/assets/furniture_wall_shelf.png"
+        src={asset('furniture_wall_shelf')}
         alt="Shelf"
         className="absolute pointer-events-none"
         style={{ left: '41.15%', top: '17.13%', width: '17.71%', zIndex: 2 }}
@@ -39,35 +42,35 @@ export default function RoomStage({
         title="Master Sanctum"
       >
         <img
-          src={solvedPuzzles.length >= puzzles.length ? '/assets/prop_sanctum_open.png' : '/assets/prop_sanctum_locked.png'}
+          src={solvedPuzzles.length >= puzzles.length ? asset('prop_sanctum_open') : asset('prop_sanctum_locked')}
           alt="Sanctum Chest"
           className="w-full h-auto drop-shadow-md group-hover:scale-105 transition-transform duration-200"
         />
       </button>
 
       <img
-        src="/assets/furniture_chair.png"
+        src={asset('furniture_chair')}
         alt="Chair"
         className="absolute pointer-events-none"
         style={{ left: '41.41%', top: '31.94%', width: '17.19%', zIndex: 4 }}
       />
 
       <img
-        src="/assets/furniture_credenza.png"
+        src={asset('furniture_credenza')}
         alt="Credenza"
         className="absolute pointer-events-none"
         style={{ left: '6.77%', top: '41.20%', width: '18.75%', zIndex: 4 }}
       />
 
       <img
-        src="/assets/furniture_telescope.png"
+        src={asset('furniture_telescope')}
         alt="Telescope"
         className="absolute pointer-events-none"
         style={{ left: '3.39%', top: '38.89%', width: '16.67%', zIndex: 5 }}
       />
 
       <img
-        src="/assets/furniture_desk.png"
+        src={asset('furniture_desk')}
         alt="Desk"
         className="absolute pointer-events-none"
         style={{ left: '31.25%', top: '41.20%', width: '37.50%', zIndex: 8 }}
@@ -81,7 +84,7 @@ export default function RoomStage({
         title="Click Barnaby for advice"
       >
         <img
-          src="/assets/character_barnaby_room.png"
+          src={asset('character_barnaby_room')}
           alt="Barnaby Pendelton"
           className="w-full h-auto filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)] transition-transform duration-200 group-hover:scale-105"
         />

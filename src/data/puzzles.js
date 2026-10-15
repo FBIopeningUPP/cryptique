@@ -1,3 +1,5 @@
+import { asset } from '../assets.js';
+
 export const PUZZLES = [
   {
     id: 'puzzle-1',
@@ -11,8 +13,8 @@ export const PUZZLES = [
       top: '46.30%',
       width: '6.51%',
       zIndex: 10,
-      sealedSrc: '/assets/prop_letter_sealed.png',
-      solvedSrc: '/assets/prop_letter_open.png',
+      sealedSrc: asset('prop_letter_sealed'),
+      solvedSrc: asset('prop_letter_open'),
       label: 'Sealed Letter'
     },
     clue: {
@@ -30,7 +32,7 @@ export const PUZZLES = [
       id: 'curio_magnifier',
       name: "Arthur's Pocket Magnifier",
       desc: "A solid brass pocket loupe Arthur used to examine miniature gear teeth and map coordinates.",
-      icon: '/assets/curio_magnifier.png'
+      icon: asset('curio_magnifier')
     }
   },
   {
@@ -45,8 +47,8 @@ export const PUZZLES = [
       top: '43.06%',
       width: '5.99%',
       zIndex: 10,
-      sealedSrc: '/assets/prop_photo.png',
-      solvedSrc: '/assets/prop_photo.png',
+      sealedSrc: asset('prop_photo'),
+      solvedSrc: asset('prop_photo'),
       label: 'Study Photograph'
     },
     clue: {
@@ -55,15 +57,15 @@ export const PUZZLES = [
       targetText: 'LUMEN-1944',
     },
     hints: [
-      "Use the magnifying loupe to inspect the book spines behind the pendulum clock.",
-      "Look for the blue-bound book tucked into the shadow of the clock.",
-      "The blue spine has embossed text: 'LUMEN-1944'. Type LUMEN to break the seal."
+      "Slide the brass loupe over the stack of books beside the mantel clock.",
+      "The blue-bound volume in the middle of the stack has gold lettering on its spine.",
+      "The blue spine is embossed 'LUMEN-1944'. Type LUMEN to break the seal."
     ],
     reward: {
       id: 'curio_photo_scrap',
       name: "Sepia Snapshot of Arthur & Sister",
       desc: "A curled photograph of two smiling children holding a handmade wooden telescope.",
-      icon: '/assets/curio_photo_scrap.png'
+      icon: asset('curio_photo_scrap')
     }
   },
   {
@@ -78,8 +80,8 @@ export const PUZZLES = [
       top: '40.74%',
       width: '5.99%',
       zIndex: 6,
-      sealedSrc: '/assets/prop_telegraph_off.png',
-      solvedSrc: '/assets/prop_telegraph_lit.png',
+      sealedSrc: asset('prop_telegraph_off'),
+      solvedSrc: asset('prop_telegraph_lit'),
       label: 'Telegraph Key'
     },
     clue: {
@@ -97,7 +99,7 @@ export const PUZZLES = [
       id: 'curio_brass_key',
       name: "Miniature Brass Telegraph Key",
       desc: "A tiny working telegraph key charm that still clicks with a clean spring action.",
-      icon: '/assets/curio_brass_key.png'
+      icon: asset('curio_brass_key')
     }
   },
   {
@@ -112,8 +114,8 @@ export const PUZZLES = [
       top: '42.59%',
       width: '5.21%',
       zIndex: 6,
-      sealedSrc: '/assets/prop_journal.png',
-      solvedSrc: '/assets/prop_journal_open.png',
+      sealedSrc: asset('prop_journal'),
+      solvedSrc: asset('prop_journal_open'),
       label: 'Leather Journal'
     },
     clue: {
@@ -130,7 +132,7 @@ export const PUZZLES = [
       id: 'curio_pressed_fern',
       name: "Pressed Fern Bookmark",
       desc: "A delicate dried fern leaf picked from the woods behind the old observatory.",
-      icon: '/assets/curio_pressed_fern.png'
+      icon: asset('curio_pressed_fern')
     }
   },
   {
@@ -145,8 +147,8 @@ export const PUZZLES = [
       top: '60.65%',
       width: '9.11%',
       zIndex: 6,
-      sealedSrc: '/assets/prop_safe_closed.png',
-      solvedSrc: '/assets/prop_safe_open.png',
+      sealedSrc: asset('prop_safe_closed'),
+      solvedSrc: asset('prop_safe_open'),
       label: 'Clockwork Safe'
     },
     clue: {
@@ -168,7 +170,7 @@ export const PUZZLES = [
       id: 'curio_clock_gear',
       name: "Interlocking Clockwork Brass Gear",
       desc: "An ornate 12-tooth horology gear stamped with Arthur's curator initials: 'A.P.'",
-      icon: '/assets/curio_clock_gear.png'
+      icon: asset('curio_clock_gear')
     }
   },
   {
@@ -183,8 +185,8 @@ export const PUZZLES = [
       top: '44.44%',
       width: '5.73%',
       zIndex: 10,
-      sealedSrc: '/assets/prop_postcard_torn.png',
-      solvedSrc: '/assets/prop_postcard_fixed.png',
+      sealedSrc: asset('prop_postcard_torn'),
+      solvedSrc: asset('prop_postcard_fixed'),
       label: 'Torn Postcard'
     },
     clue: {
@@ -193,15 +195,15 @@ export const PUZZLES = [
       payloadText: 'STARLIGHT',
     },
     hints: [
-      "Drag the three torn postcard scraps so their edges meet on the work mat.",
-      "Once assembled, scan the corner stamp with your phone camera or click 'Examine Stamp' to reveal the destination.",
+      "Drag the three torn scraps onto the work mat. Each one clicks into place when it's close to where it belongs.",
+      "The scrap with the stamp goes on the right, the narrow starry one on the left. Once it's whole, click 'Examine Stamp'.",
       "The stamp reveals the constellation destination word: STARLIGHT."
     ],
     reward: {
       id: 'curio_star_postcard',
       name: "Restored Constellation Postcard",
       desc: "A hand-illustrated chart of the northern skies pointing directly to the treehouse coordinates.",
-      icon: '/assets/curio_star_postcard.png'
+      icon: asset('curio_star_postcard')
     }
   },
   {
@@ -216,8 +218,8 @@ export const PUZZLES = [
       top: '23.15%',
       width: '13.54%',
       zIndex: 5,
-      sealedSrc: '/assets/furniture_clock.png',
-      solvedSrc: '/assets/furniture_clock.png',
+      sealedSrc: asset('furniture_clock'),
+      solvedSrc: asset('furniture_clock'),
       label: 'Pendulum Clock'
     },
     clue: {
@@ -233,7 +235,7 @@ export const PUZZLES = [
       id: 'curio_pocket_watch',
       name: "Arthur's Silver Pocket Watch",
       desc: "An intricately etched silver watch permanently frozen at a quarter to midnight.",
-      icon: '/assets/furniture_clock.png'
+      icon: asset('furniture_clock')
     }
   }
 ];
