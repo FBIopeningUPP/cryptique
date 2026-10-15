@@ -49,7 +49,6 @@ function writeStoredValue(key, value) {
   try {
     localStorage.setItem(key, value);
   } catch {
-    // Progress remains available for the current session if storage is unavailable.
   }
 }
 

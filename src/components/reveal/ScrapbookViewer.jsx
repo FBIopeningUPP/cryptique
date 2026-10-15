@@ -52,11 +52,9 @@ export default function ScrapbookViewer({ isMuted = false, onShowCertificate }) 
 
   return (
     <div className="w-full flex flex-col items-center gap-4">
-      {/* Scrapbook Frame */}
       <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] bg-[#FAF3E3] border-4 border-[#543D2D] rounded-2xl shadow-2xl p-4 sm:p-6 flex flex-col justify-between overflow-hidden">
         <div className="absolute top-0 bottom-0 left-0 w-4 bg-gradient-to-r from-black/20 to-transparent pointer-events-none" />
 
-        {/* slide animate */}
         <AnimatePresence mode="wait">
           <motion.div
             key={currentPage}
@@ -66,7 +64,6 @@ export default function ScrapbookViewer({ isMuted = false, onShowCertificate }) 
             transition={{ duration: 0.25 }}
             className="flex-1 flex flex-col sm:flex-row gap-4 sm:gap-6 items-center overflow-hidden"
           >
-            {/* L: vint pic*/}
             <div className="w-full sm:w-1/2 aspect-video sm:aspect-square bg-[#231A13] border-2 border-[#C59B4B] rounded-xl overflow-hidden shadow-md flex-shrink-0">
               <img
                 src={page.image}
@@ -75,7 +72,6 @@ export default function ScrapbookViewer({ isMuted = false, onShowCertificate }) 
               />
             </div>
 
-            {/* R: journal */}
             <div className="w-full sm:w-1/2 flex flex-col justify-center text-left space-y-2">
               <div className="flex items-center justify-between border-b border-[#D5C29D] pb-1">
                 <span className="font-serif text-[11px] text-[#8B3A22] uppercase tracking-widest font-bold flex items-center gap-1">
@@ -98,7 +94,6 @@ export default function ScrapbookViewer({ isMuted = false, onShowCertificate }) 
           </motion.div>
         </AnimatePresence>
 
-        {/* footer*/}
         <div className="flex items-center justify-between pt-3 border-t border-[#D5C29D] mt-2">
           <button
             onClick={handlePrev}

@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
@@ -9,18 +8,18 @@ export default {
       colors: {
         parchment: {
           50: '#FDFBF7',
-          100: '#FBF7EE',  // Base background
-          200: '#F4EBD9',  // Card surface
-          300: '#E8DBBF',  // Card borders
-          400: '#D5C29D',  // Subtle lines
+          100: '#FBF7EE',
+          200: '#F4EBD9',
+          300: '#E8DBBF',
+          400: '#D5C29D',
           500: '#BAA276',
         },
         ink: {
-          900: '#231B15',  // Deep antique ink (primary text)
-          800: '#352B24',  // Headers
-          700: '#4E4137',  // Body text
-          500: '#7B6A5C',  // Faded subtitles / stamps
-          300: '#B09E8F',  // Inactive text
+          900: '#231B15',
+          800: '#352B24',
+          700: '#4E4137',
+          500: '#7B6A5C',
+          300: '#B09E8F',
         },
         gold: {
           DEFAULT: '#C59B4B',
@@ -28,12 +27,12 @@ export default {
           dark: '#936E2B',
         },
         rust: {
-          DEFAULT: '#B2533E', // Wax seals / sealed locks
+          DEFAULT: '#B2533E',
           hover: '#C7634D',
           dark: '#873B2B',
         },
         sage: {
-          DEFAULT: '#6B8772', // Solved / verified badges
+          DEFAULT: '#6B8772',
           light: '#88A38F',
           dark: '#4F6855',
         },

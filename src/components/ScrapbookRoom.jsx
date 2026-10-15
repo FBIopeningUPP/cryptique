@@ -46,14 +46,12 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
 
   return (
     <div className="relative w-full h-full overflow-hidden select-none bg-[#140E0A] flex flex-col items-center justify-between p-6">
-          {/* Background Vintage Texture */}
           <img
             src={asset('ending_scrapbook_bg')}
             alt="Arthur's Scrapbook"
             className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-40 mix-blend-luminosity"
           />
 
-          {/* Room Header Plaque */}
           <div className="relative z-20 text-center mt-12 sm:mt-14 bg-[#231812]/90 border border-[#8C6F56]/60 px-6 py-2 rounded-full shadow-lg backdrop-blur-sm">
             <h1 className="font-serif text-base sm:text-lg text-[#F4EBD9] tracking-wider uppercase">
               ✦ The Archivist's Epilogue: Scrapbook & Darkroom ✦
@@ -70,9 +68,7 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
             </button>
           </div>
 
-          {/* Main Interactive Tabletop Stage */}
           <div className="relative w-full max-w-5xl flex-1 flex items-center justify-center">
-            {/* Souvenir 1: Polaroid (Top Left) */}
             <div
               onClick={() => handleOpenSouvenir('treehouse')}
               className="absolute left-4 top-4 sm:left-12 sm:top-8 z-10 cursor-pointer group transition-all duration-300 hover:scale-105 hover:z-30"
@@ -90,7 +86,6 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
               </div>
             </div>
 
-            {/* Souvenir 2: Train Ticket (Bottom Left) */}
             <div
               onClick={() => handleOpenSouvenir('train')}
               className="absolute left-6 bottom-8 sm:left-16 sm:bottom-12 z-10 cursor-pointer group transition-all duration-300 hover:scale-105 hover:z-30"
@@ -105,7 +100,6 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
               </div>
             </div>
 
-            {/* Souvenir 3: Astro Star Map (Top Right) */}
             <div
               onClick={() => handleOpenSouvenir('astromap')}
               className="absolute right-4 top-4 sm:right-12 sm:top-8 z-10 cursor-pointer group transition-all duration-300 hover:scale-105 hover:z-30"
@@ -123,13 +117,11 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
               </div>
             </div>
 
-            {/* Center: The Interactive UV Secret Puzzle */}
             <div className="relative z-20 my-auto">
               <UVPuzzle isMuted={isMuted} />
             </div>
           </div>
 
-          {/* Return to Attic Button */}
           <button
             onClick={onReturn}
             className="relative z-30 mb-2 px-6 py-2.5 bg-[#4A3222] hover:bg-[#F4EBD9] text-[#F4EBD9] hover:text-[#231812] font-serif font-bold uppercase text-xs tracking-widest rounded-lg border-2 border-[#8C6F56] transition shadow-xl cursor-pointer active:scale-95"
@@ -156,7 +148,6 @@ export default function ScrapbookRoom({onReturn, isMuted = false}) {
             </div>
           )}
 
-          {/* Souvenir Inspection Modal */}
           {activeSouvenir && (
             <div
               className="fixed inset-0 z-50 bg-black/75 flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in"

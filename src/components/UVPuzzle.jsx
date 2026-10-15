@@ -63,14 +63,12 @@ export default function UVPuzzle({isMuted=false}) {
 
   return (
         <div className="flex flex-col items-center gap-4">
-          {/* UV Flashlight Examination Slate */}
           <div
             className="relative w-80 h-72 sm:w-96 sm:h-80 bg-[#EFE5D3] border-4 border-[#543D2D] rounded-xl shadow-2xl cursor-crosshair overflow-hidden select-none"
             onMouseMove={handleMouseMove}
             onTouchMove={handleTouchMove}
             ref={containerRef}
           >
-            {/* Ambient UV light glow cursor */}
             <div
               className="pointer-events-none absolute w-32 h-32 rounded-full -translate-x-1/2 -translate-y-1/2 transition-opacity duration-150"
               style={{
@@ -80,7 +78,6 @@ export default function UVPuzzle({isMuted=false}) {
               }}
             />
 
-            {/* Base Layer: Weathered Paper Page */}
             <div className="absolute inset-0 p-6 flex flex-col items-center justify-center text-center font-serif pointer-events-none">
               <div className="text-xs uppercase tracking-widest text-[#8C6F56] border-b border-[#D8C7B0] pb-1 mb-2 font-mono">
                 Arthur's Field Specimen — 1968
@@ -94,7 +91,6 @@ export default function UVPuzzle({isMuted=false}) {
               </div>
             </div>
 
-            {/* Hidden Layer revealed by UV mask */}
             <div
               className="absolute inset-0 bg-[#0F0B18] p-6 flex flex-col items-center justify-center pointer-events-none transition-all"
               style={{
@@ -116,14 +112,12 @@ export default function UVPuzzle({isMuted=false}) {
             </div>
           </div>
 
-          {/* 4-Digit Combination Lock or Unlocked Reward */}
           {!isUnlocked ? (
             <div className="bg-[#2D2119]/90 border-2 border-[#8B7355] rounded-xl p-4 shadow-xl flex flex-col items-center gap-3 backdrop-blur-sm">
               <div className="text-xs text-[#E6D7C3] uppercase tracking-wider font-serif">
                 Enter 4-Digit Cipher
               </div>
 
-              {/* 4 Slots */}
               <div className={`flex gap-3 ${errorShake ? 'animate-[shake_0.4s_ease-in-out] text-red-400' : ''}`}>
                 {[0, 1, 2, 3].map((slot) => (
                   <div
@@ -135,7 +129,6 @@ export default function UVPuzzle({isMuted=false}) {
                 ))}
               </div>
 
-              {/* Keypad */}
               <div className="grid grid-cols-3 gap-2 mt-1">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                   <button
@@ -162,7 +155,6 @@ export default function UVPuzzle({isMuted=false}) {
               </div>
             </div>
           ) : (
-            /* Reward Card when Unlocked */
             <div className="bg-[#1A120B]/95 border-2 border-[#D4AF37] rounded-xl p-5 shadow-2xl max-w-sm text-center animate-fade-in backdrop-blur-sm">
               <div className="text-2xl mb-1">🗝️ ✨</div>
               <h3 className="font-serif font-bold text-lg text-[#D4AF37]">
