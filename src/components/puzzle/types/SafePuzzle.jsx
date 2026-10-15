@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { ChevronUp, ChevronDown, Lock, Unlock} from 'lucide-react';
-import { rotateTumbler, isCombinationCorrect } from '../../../logic/safeLockEngine.js';
+import { rotateTumbler, isCombinationCorrect, INITIAL_DIALS, TARGET_COMBINATION, formatDialsToString } from '../../../logic/safeLockEngine.js';
 import { playMechanicalClick, playSuccessChime, playSealStamp } from '../../../logic/audioEngine.js';
 import { asset } from '../../../assets.js';
 
 export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
-    const [dials, setDials] = useState([0, 0, 0, 0]);
+    const [dials, setDials] = useState(() => (isSolved ? TARGET_COMBINATION : INITIAL_DIALS));
     const [errorShake, setErrorShake] = useState(false);
     const errorTimeoutRef = useRef(null);
 
@@ -20,7 +20,7 @@ export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
         if (isSolved) return;
         if (isCombinationCorrect(dials)) {
             playSuccessChime(isMuted);
-            onSolve('3437');
+            onSolve(formatDialsToString(dials));
         } else {
             playSealStamp(isMuted);
             setErrorShake(true);
@@ -46,6 +46,7 @@ export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
                     disabled={isSolved}
                     className="p-1 text-[#8B3A22] hover:scale-125 transition active:scale-95 disabled:opacity-50"
                     title="Increment Dial"
+                    aria-label={`Turn dial ${idx + 1} up`}
                   >
                     <ChevronUp className="w-5 h-5" />
                   </button>
@@ -60,6 +61,7 @@ export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
                     disabled={isSolved}
                     className="p-1 text-[#8B3A22] hover:scale-125 transition active:scale-95 disabled:opacity-50"
                     title="Decrement Dial"
+                    aria-label={`Turn dial ${idx + 1} down`}
                   >
                     <ChevronDown className="w-5 h-5" />
                   </button>
@@ -72,10 +74,9 @@ export default function SafePuzzle({puzzle, isSolved, onSolve, isMuted}) {
             <div className="font-bold text-[#8B3A22] uppercase tracking-wider mb-1">
               Lockbox Tumbler Clues:
             </div>
-            <p>I: The Caesar shift from Arthur's letter</p>
-            <p>II: Final digit of the blackout photo year</p>
-            <p>III: Dots in telegraph transmission's first letter</p>
-            <p>IV: Number of letters in secret fiber word</p>
+            {puzzle.clue.dialRiddles.map((riddle) => (
+              <p key={riddle}>{riddle}</p>
+            ))}
           </div>
 
           <button

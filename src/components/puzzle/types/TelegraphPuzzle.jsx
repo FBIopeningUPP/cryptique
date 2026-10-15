@@ -9,6 +9,8 @@ export default function TelegraphPuzzle({puzzle, isMuted}) {
     const [isBulbLit, setIsBulbLit] = useState(false);
     const [showChart, setShowChart] = useState(false);
     const timeoutsRef = useRef([]);
+    const isMutedRef = useRef(isMuted);
+    isMutedRef.current = isMuted;
 
     const stopPlayback = () => {
         timeoutsRef.current.forEach((t) => clearTimeout(t));
@@ -37,7 +39,7 @@ export default function TelegraphPuzzle({puzzle, isMuted}) {
             const timeoutId = setTimeout(() => {
                 if (step.type === 'ON') {
                     setIsBulbLit(true);
-                    playMorseTone(step.durationMs, 720, isMuted);
+                    playMorseTone(step.durationMs, 720, isMutedRef.current);
                 } else {
                     setIsBulbLit(false);
                 }

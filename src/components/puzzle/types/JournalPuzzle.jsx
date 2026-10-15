@@ -16,7 +16,7 @@ export default function JournalPuzzle({puzzle}) {
 
             <div
               style={{ display: 'none' }}
-              dangerouslySetInnerHTML={{ __html: '<!-- ARCHIVIST NOTE: The fiber keyword is CHRONOS -->' }}
+              dangerouslySetInnerHTML={{ __html: `<!-- ${puzzle.clue.hiddenComment} -->` }}
             />
 
             {isPeeled && (
