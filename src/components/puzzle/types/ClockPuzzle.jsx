@@ -86,10 +86,10 @@ export default function ClockPuzzle({puzzle, isSolved, onSolve, isMuted}) {
                 <div className="flex flex-col items-center gap-1">
                     <span className="font-serif text-[10px] uppercase font-bold text-[#8B3A22]">Hours</span>
                     <div className="flex gap-2">
-                        <button onClick={() => handleRotate('hours', -1)} disabled={isSolved} className="p-1.5 bg-[#FAF3E3] border border-[#C59B4B] rounded hover:bg-[#EFE5D3] active:scale-95 disabled:opacity-50 text-[#2D1F17]">
+                        <button onClick={() => handleRotate('hours', -1)} aria-label="Hour hand back" disabled={isSolved} className="p-1.5 bg-[#FAF3E3] border border-[#C59B4B] rounded hover:bg-[#EFE5D3] active:scale-95 disabled:opacity-50 text-[#2D1F17]">
                             <RotateCcw className="w-4 h-4" aria-hidden="true" />
                         </button>
-                        <button onClick={() => handleRotate('hours', 1)} disabled={isSolved} className="p-1.5 bg-[#FAF3E3] border border-[#C59B4B] rounded hover:bg-[#EFE5D3] active:scale-95 disabled:opacity-50 text-[#2D1F17]">
+                        <button onClick={() => handleRotate('hours', 1)} aria-label="Hour hand forward" disabled={isSolved} className="p-1.5 bg-[#FAF3E3] border border-[#C59B4B] rounded hover:bg-[#EFE5D3] active:scale-95 disabled:opacity-50 text-[#2D1F17]">
                             <RotateCw className="w-4 h-4" aria-hidden="true" />
                         </button>
                     </div>
@@ -102,10 +102,10 @@ export default function ClockPuzzle({puzzle, isSolved, onSolve, isMuted}) {
                 <div className="flex flex-col items-center gap-1">
                     <span className="font-serif text-[10px] uppercase font-bold text-[#8B3A22]">Minutes</span>
                     <div className="flex gap-2">
-                        <button onClick={() => handleRotate('minutes', -1)} disabled={isSolved} className="p-1.5 bg-[#FAF3E3] border border-[#C59B4B] rounded hover:bg-[#EFE5D3] active:scale-95 disabled:opacity-50 text-[#2D1F17]">
+                        <button onClick={() => handleRotate('minutes', -1)} aria-label="Minute hand back" disabled={isSolved} className="p-1.5 bg-[#FAF3E3] border border-[#C59B4B] rounded hover:bg-[#EFE5D3] active:scale-95 disabled:opacity-50 text-[#2D1F17]">
                             <RotateCcw className="w-4 h-4" aria-hidden="true" />
                         </button>
-                        <button onClick={() => handleRotate('minutes', 1)} disabled={isSolved} className="p-1.5 bg-[#FAF3E3] border border-[#C59B4B] rounded hover:bg-[#EFE5D3] active:scale-95 disabled:opacity-50 text-[#2D1F17]">
+                        <button onClick={() => handleRotate('minutes', 1)} aria-label="Minute hand forward" disabled={isSolved} className="p-1.5 bg-[#FAF3E3] border border-[#C59B4B] rounded hover:bg-[#EFE5D3] active:scale-95 disabled:opacity-50 text-[#2D1F17]">
                             <RotateCw className="w-4 h-4" aria-hidden="true" />
                         </button>
                     </div>
