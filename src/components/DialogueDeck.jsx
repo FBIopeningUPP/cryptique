@@ -14,7 +14,7 @@ export default function DialogueDeck({ dialogue, mood = 'neutral', onBarnabyClic
   return (
     <div className="fixed bottom-3 sm:bottom-4 md:bottom-5 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center w-[92%] sm:w-[86%] md:w-[76%] max-w-3xl pointer-events-none select-none">
       <div className="relative flex items-center w-full pointer-events-auto filter drop-shadow-[0_8px_24px_rgba(0,0,0,0.55)]">
-        
+
         <button
           type="button"
           onClick={onBarnabyClick}

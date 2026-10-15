@@ -13,7 +13,7 @@ export default function ClockPuzzle({puzzle, isSolved, onSolve, isMuted}) {
     const handleRotate = (type, direction) => {
         if (isSolved) return;
         playMechanicalClick(isMuted);
-        
+
         if (type === 'hours') {
             setHours(prev => {
                 let next = prev + direction;
@@ -50,10 +50,10 @@ export default function ClockPuzzle({puzzle, isSolved, onSolve, isMuted}) {
     return (
         <div className={`flex flex-col items-center gap-4 w-full max-w-md bg-[#FAF3E3] border-2 border-[#543D2D] rounded-xl p-5 shadow-inner ${hasError ? 'animate-shake' : ''}`}>
             <div className="relative aspect-square w-64 rounded-xl overflow-hidden border border-[#D5C29D] shadow-md bg-[#231A13] flex items-center justify-center">
-                
+
                 {/* Clock Face Background */}
                 <div className="relative w-48 h-48 rounded-full border-4 border-[#C59B4B] bg-[#EFE5D3] shadow-inner flex items-center justify-center">
-                    
+
                     {/* Clock Numbers */}
                     {[...Array(12)].map((_, i) => (
                         <div key={i} className="absolute w-full h-full p-2" style={{ transform: `rotate(${i * 30}deg)` }}>
@@ -67,18 +67,18 @@ export default function ClockPuzzle({puzzle, isSolved, onSolve, isMuted}) {
                     <div className="absolute w-3 h-3 bg-[#2D1F17] rounded-full z-20 shadow-sm border border-[#C59B4B]"></div>
 
                     {/* Hour Hand */}
-                    <div 
+                    <div
                         className="absolute w-1.5 h-14 bg-[#2D1F17] rounded-full origin-bottom z-10"
-                        style={{ 
+                        style={{
                             transform: `translateY(-50%) rotate(${hours * 30 + (minutes / 60) * 30}deg)`,
                             bottom: '50%'
                         }}
                     ></div>
 
                     {/* Minute Hand */}
-                    <div 
+                    <div
                         className="absolute w-1 h-20 bg-[#543D2D] rounded-full origin-bottom z-10"
-                        style={{ 
+                        style={{
                             transform: `translateY(-50%) rotate(${minutes * 6}deg)`,
                             bottom: '50%'
                         }}

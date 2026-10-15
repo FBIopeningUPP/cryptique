@@ -62,7 +62,7 @@ export function playVinylCrackle(volume = 0.5) {
     stopAmbient();
     const ctx = getContext();
     if (!ctx) return;
-    
+
     gainNode = ctx.createGain();
     setAmbientVolume(volume);
     gainNode.connect(ctx.destination);

@@ -9,7 +9,7 @@ export function useLocalStorage(key, initialValue) {
             console.warn(`Error reading localStorage key "${key}":`, error);
             return initialValue;
         }
-    }); 
+    });
 
     useEffect(() => {
         try {

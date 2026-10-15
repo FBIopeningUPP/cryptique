@@ -52,7 +52,7 @@ export default function SanctumModal({
         tabIndex={-1}
         className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-[#F7EFE1] border-4 border-[#C59B4B] rounded-2xl shadow-[0_16px_50px_rgba(0,0,0,0.9)] p-5 sm:p-7 flex flex-col items-center gap-4 text-center"
       >
-        
+
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -100,7 +100,7 @@ export default function SanctumModal({
 
         {viewMode === 'certificate' && (
           <div className="w-full flex flex-col items-center gap-4">
-            
+
             {/* The Certificate Plaque */}
             <div className="w-full bg-[#FAF3E3] border-4 border-[#543D2D] rounded-2xl p-5 sm:p-6 shadow-md flex flex-col items-center gap-3 text-center">
               <Award className="w-12 h-12 text-[#C59B4B]" />
