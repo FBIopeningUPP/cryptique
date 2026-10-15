@@ -57,9 +57,9 @@ export const PUZZLES = [
       targetText: 'LUMEN-1944',
     },
     hints: [
-      "Use the magnifying loupe to inspect the book spines behind the pendulum clock.",
-      "Look for the blue-bound book tucked into the shadow of the clock.",
-      "The blue spine has embossed text: 'LUMEN-1944'. Type LUMEN to break the seal."
+      "Slide the brass loupe over the stack of books beside the mantel clock.",
+      "The blue-bound volume in the middle of the stack has gold lettering on its spine.",
+      "The blue spine is embossed 'LUMEN-1944'. Type LUMEN to break the seal."
     ],
     reward: {
       id: 'curio_photo_scrap',
@@ -195,8 +195,8 @@ export const PUZZLES = [
       payloadText: 'STARLIGHT',
     },
     hints: [
-      "Drag the three torn postcard scraps so their edges meet on the work mat.",
-      "Once assembled, scan the corner stamp with your phone camera or click 'Examine Stamp' to reveal the destination.",
+      "Drag the three torn scraps onto the work mat. Each one clicks into place when it's close to where it belongs.",
+      "The scrap with the stamp goes on the right, the narrow starry one on the left. Once it's whole, click 'Examine Stamp'.",
       "The stamp reveals the constellation destination word: STARLIGHT."
     ],
     reward: {
