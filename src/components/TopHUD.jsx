@@ -61,7 +61,7 @@ export default function TopHUD({
             </div>
           </div>
 
-          <div className="flex items-center gap-0.5 sm:gap-2">
+          <div className="hidden sm:flex items-center gap-2">
             <span className="hidden md:inline text-[11px] sm:text-xs font-serif text-[#C59B4B] uppercase tracking-widest font-semibold mr-0.5">
               Seals:
             </span>

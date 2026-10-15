@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { asset } from '../assets.js';
 
 export default function RoomStage({
@@ -18,6 +17,9 @@ export default function RoomStage({
 
   return (
     <div className="relative w-full h-full overflow-hidden select-none bg-[#1E1712] flex items-center justify-center">
+      <p className="hidden portrait:max-sm:block absolute top-20 inset-x-4 text-center font-serif text-xs text-[#D5C29D] bg-[#2D1F17]/90 border border-[#543D2D] rounded-lg px-3 py-2 pointer-events-none">
+        Turn your phone sideways for a bigger attic.
+      </p>
       <div className="relative w-[min(100%,177.777vh)] aspect-video max-h-full">
       <img
         src={asset('room_attic_empty')}
