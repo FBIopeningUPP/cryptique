@@ -24,6 +24,67 @@ export default function RoomStage({
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
 
+      <div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          left: '30%',
+          top: '59%',
+          width: '39%',
+          height: '4%',
+          background: 'radial-gradient(ellipse at center, rgba(15,10,7,0.75) 0%, rgba(15,10,7,0.3) 55%, transparent 75%)',
+          filter: 'blur(3px)',
+          zIndex: 3,
+        }}
+      />
+      <div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          left: '43%',
+          top: '50%',
+          width: '14%',
+          height: '3%',
+          background: 'radial-gradient(ellipse at center, rgba(15,10,7,0.6) 0%, transparent 70%)',
+          filter: 'blur(2px)',
+          zIndex: 3,
+        }}
+      />
+      <div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          left: '78%',
+          top: '73%',
+          width: '16%',
+          height: '4%',
+          background: 'radial-gradient(ellipse at center, rgba(15,10,7,0.75) 0%, transparent 75%)',
+          filter: 'blur(3px)',
+          zIndex: 3,
+        }}
+      />
+      <div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          left: '7%',
+          top: '57%',
+          width: '18%',
+          height: '4%',
+          background: 'radial-gradient(ellipse at center, rgba(15,10,7,0.65) 0%, transparent 75%)',
+          filter: 'blur(3px)',
+          zIndex: 3,
+        }}
+      />
+      <div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          left: '5%',
+          top: '58%',
+          width: '12%',
+          height: '3%',
+          background: 'radial-gradient(ellipse at center, rgba(15,10,7,0.5) 0%, transparent 70%)',
+          filter: 'blur(2px)',
+          zIndex: 3,
+        }}
+      />
+
       <img
         src="/assets/furniture_wall_shelf.png"
         alt="Shelf"
