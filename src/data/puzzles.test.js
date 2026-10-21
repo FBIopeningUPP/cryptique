@@ -21,8 +21,8 @@ describe('puzzle catalog', () => {
 
     PUZZLES.forEach((puzzle) => {
       expect(puzzle.placement.label).toBeTruthy();
-      expect(puzzle.placement.sealedSrc).toMatch(/^\/assets\//);
-      expect(puzzle.placement.solvedSrc).toMatch(/^\/assets\//);
+      expect(puzzle.placement.sealedSrc).toMatch(/assets\/[a-z_]+\.webp$/);
+      expect(puzzle.placement.solvedSrc).toMatch(/assets\/[a-z_]+\.webp$/);
     });
   });
 

@@ -33,10 +33,10 @@ export function compileMorseSchedule(morseString, unitMs = MORSE_UNIT_MS) {
 
         if (symbol === '.') {
           schedule.push({ type: 'ON', durationMs: unitMs });
-          schedule.push({ type: 'OFF', durationMs: unitMs }); 
+          schedule.push({ type: 'OFF', durationMs: unitMs });
         } else if (symbol === '-') {
           schedule.push({ type: 'ON', durationMs: unitMs * 3 });
-          schedule.push({ type: 'OFF', durationMs: unitMs }); 
+          schedule.push({ type: 'OFF', durationMs: unitMs });
         } else if (symbol === ' ') {
           schedule.push({ type: 'OFF', durationMs: unitMs * 2 });
         } else if (symbol === '/') {

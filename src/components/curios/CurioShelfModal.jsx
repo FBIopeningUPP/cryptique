@@ -73,7 +73,7 @@ export default function CurioShelfModal({ isOpen, onClose, solvedPuzzles = [], p
         tabIndex={-1}
         className="relative w-full max-w-3xl max-h-[92vh] flex flex-col bg-[#241A13] border-4 border-[#543D2D] rounded-2xl shadow-[0_16px_50px_rgba(0,0,0,0.9)] overflow-hidden"
       >
-        
+
         <div className="flex items-center justify-between px-6 py-4 bg-[#1C140E] border-b-2 border-[#543D2D]">
           <div className="flex items-center gap-3">
             <Sparkles className="w-5 h-5 text-[#C59B4B]" />
