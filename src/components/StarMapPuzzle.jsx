@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, RotateCcw, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { playMechanicalClick, playSuccessChime } from '../logic/audioEngine.js';
+import { asset } from '../assets.js';
 
 const STARS = [
   { id: 1, x: 22, y: 28, name: 'Schedar' },
@@ -64,7 +65,7 @@ export default function StarMapPuzzle({ isOpen, onClose, isMuted = false }) {
       <div className="relative w-full max-w-3xl aspect-[4/3] bg-[#0A0D14] border-4 border-[#C59B4B] rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(197,155,75,0.35)] flex flex-col justify-between">
         
         <img
-          src="/assets/astromap.png"
+          src={asset('astromap')}
           alt="Celestial Chart"
           className="absolute inset-0 w-full h-full object-cover opacity-75 pointer-events-none"
         />
